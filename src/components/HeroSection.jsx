@@ -115,7 +115,7 @@ const HeroSection = () => {
                 menu
               </span>
               <svg
-                className="absolute -top-[50%] -left-[25%] w-[150%] h-[200%] pointer-events-none overflow-visible"
+                className="absolute -top-[50%] -left-[25%] w-[150%] h-[200%] overflow-visible cursor-pointer"
                 viewBox="0 0 200 100"
               >
                 <path

@@ -427,8 +427,19 @@ const ShopSection = () => {
         <div className="absolute top-10 left-0 w-full flex justify-between items-end z-10" style={{ paddingLeft: '80px', paddingRight: '40px' }}>
           <div>
             <h3 className="text-sm font-mono text-[#333333] tracking-widest mb-2">33% OFF</h3>
-            <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333]">
-              Browse <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Collection</span>
+            <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333] flex items-center gap-3 md:gap-4">
+              <span className="inline-block transition-all duration-300 hover:translate-x-3 hover:-translate-y-2 hover:scale-110 active:translate-x-3 active:-translate-y-2 active:scale-110 cursor-pointer">
+                Browse
+              </span>
+              <img
+                src="/stickers/6.png"
+                alt="decorative sticker"
+                className="w-12 h-12 md:w-16 md:h-16 inline-block drop-shadow-lg transition-all duration-300 hover:scale-125 hover:rotate-12 active:scale-125 active:rotate-12 cursor-pointer"
+                style={{ transform: 'rotate(-8deg)' }}
+              />
+              <span className="italic font-light tracking-wide inline-block transition-all duration-300 hover:translate-x-3 hover:-translate-y-2 hover:scale-110 active:translate-x-3 active:-translate-y-2 active:scale-110 cursor-pointer" style={{ fontFamily: 'Playfair Display, serif' }}>
+                Collection
+              </span>
             </h2>
           </div>
           <div className="hidden md:flex gap-2 text-sm font-mono text-[#333333]/70">

@@ -6,6 +6,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
 
   const menuItems = [
     { name: 'Home', path: '/' },
+    { name: 'Shop', path: '/shop' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -27,7 +28,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black z-[90] flex items-center justify-center pointer-events-auto"
+            className="fixed inset-0 bg-[#c1765b] z-[90] flex items-center justify-center pointer-events-auto"
           >
             <nav className="pointer-events-auto">
               <ul className="space-y-8">
@@ -42,7 +43,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                     <Link
                       to={item.path}
                       onClick={handleLinkClick}
-                      className="text-6xl md:text-8xl font-black text-white hover:text-white/60 transition-colors pointer-events-auto cursor-pointer block"
+                      className="text-6xl md:text-8xl font-black text-[#fff5eb] hover:text-[#fff5eb]/60 transition-colors pointer-events-auto cursor-pointer block"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     >
                       {item.name}
@@ -52,16 +53,18 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               </ul>
             </nav>
 
-            {/* Decorative Element */}
+            {/* Logo at Bottom */}
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.4, type: 'spring' }}
-              className="absolute bottom-10 right-10"
+              initial={{ scale: 0, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ delay: 0.4, type: 'spring', bounce: 0.5 }}
+              className="absolute bottom-10 left-1/2 -translate-x-1/2"
             >
-              <div className="text-white/10 text-7xl md:text-9xl font-black" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Nala's <span className="italic font-light">Baby</span>
-              </div>
+              <img
+                src="/nala-2.png"
+                alt="Nala's Baby Logo"
+                className="h-32 md:h-40 w-auto opacity-30"
+              />
             </motion.div>
           </motion.div>
         )}

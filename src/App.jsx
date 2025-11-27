@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import HeroSection from './components/HeroSection'
 import ScrollExperience from './components/ScrollExperience'
 import ContactPage from './components/ContactPage'
+import ShopPage from './components/ShopPage'
+import ProductPage from './components/ProductPage'
 import BurgerMenu from './components/BurgerMenu'
 import ScribbleOverlay from './components/ScribbleOverlay'
 
@@ -42,6 +44,18 @@ function App() {
         <Route
           path="/contact"
           element={<ContactPage />}
+        />
+
+        {/* Shop Route */}
+        <Route
+          path="/shop"
+          element={<ShopPage />}
+        />
+
+        {/* Product Route */}
+        <Route
+          path="/shop/:id"
+          element={<ProductPage />}
         />
       </Routes>
     </div>

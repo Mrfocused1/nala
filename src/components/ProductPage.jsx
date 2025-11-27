@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import BurgerMenu from './BurgerMenu';
 
 // --- Data & Content ---
 
@@ -94,6 +96,7 @@ const SizeTable = ({ data }) => (
 export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState('250ml');
   const [openAccordion, setOpenAccordion] = useState('overview');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleAccordion = (key) => {
     setOpenAccordion(openAccordion === key ? null : key);
@@ -101,6 +104,59 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-[#fff5eb] font-sans text-[#333333] selection:bg-[#c1765b]/20 selection:text-[#c1765b]">
+
+      {/* Header */}
+      <header className="fixed top-0 left-0 w-full z-40 pointer-events-none bg-[#fff5eb]/95 backdrop-blur-sm">
+        {/* Center: Logo */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-[20px] pointer-events-auto">
+          <Link to="/">
+            <img
+              src="/nala-2.png"
+              alt="Nala's Baby Logo"
+              className="h-16 md:h-20 w-auto drop-shadow-lg hover:scale-105 transition-transform cursor-pointer"
+            />
+          </Link>
+        </div>
+
+        {/* Right: Menu Button */}
+        <div className="absolute right-[50px] top-[24px] pointer-events-auto">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            className="group transition-transform hover:translate-x-1"
+          >
+            <span className="relative inline-block">
+              <span
+                className="text-xl md:text-2xl italic font-light tracking-wide transition-colors text-[#c1765b] hover:text-[#333333]"
+                style={{
+                  fontFamily: 'Playfair Display, serif',
+                  textShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}
+              >
+                menu
+              </span>
+              <svg
+                className="absolute -top-[50%] -left-[25%] w-[150%] h-[200%] pointer-events-none overflow-visible"
+                viewBox="0 0 200 100"
+              >
+                <path
+                  d="M 20 40 C 20 20, 80 10, 150 20 C 200 30, 190 80, 140 85 C 90 90, 30 80, 25 50"
+                  fill="none"
+                  stroke="#c1765b"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  className="opacity-80"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </header>
+
+      {/* Burger Menu */}
+      <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       {/* Main Content */}
       <main className="max-w-[1600px] mx-auto">

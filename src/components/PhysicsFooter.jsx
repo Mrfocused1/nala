@@ -3,22 +3,22 @@ import { ArrowDown } from 'lucide-react';
 
 // Footer items adapted for Nala's Baby
 const FOOTER_ITEMS = [
-  { id: 'shop-1', text: 'Body Wash', type: 'link', width: 140, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'shop-2', text: 'Lotions', type: 'link', width: 120, bg: '#ffffff', textCol: '#c1765b' },
+  { id: 'shop-1', text: 'Body Wash', type: 'link', width: 140, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'shop-2', text: 'Lotions', type: 'link', width: 120, bg: '#c1765b', textCol: '#ffffff' },
   { id: 'shop-3', text: 'Hair Care', type: 'link', width: 130, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'shop-4', text: 'Bundles', type: 'link', width: 120, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'shop-4', text: 'Bundles', type: 'link', width: 120, bg: '#ffffff', textCol: '#c1765b' },
 
-  { id: 'help-1', text: 'Shipping', type: 'link', width: 120, bg: '#333333', textCol: '#ffeddb' },
-  { id: 'help-2', text: 'Returns', type: 'link', width: 110, bg: '#333333', textCol: '#ffeddb' },
-  { id: 'help-3', text: 'FAQ', type: 'link', width: 80, bg: '#333333', textCol: '#ffeddb' },
-  { id: 'help-4', text: 'Contact', type: 'link', width: 120, bg: '#333333', textCol: '#ffeddb' },
+  { id: 'help-1', text: 'Shipping', type: 'link', width: 120, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'help-2', text: 'Returns', type: 'link', width: 110, bg: '#ffffff', textCol: '#c1765b' },
+  { id: 'help-3', text: 'FAQ', type: 'link', width: 80, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'help-4', text: 'Contact', type: 'link', width: 120, bg: '#ffffff', textCol: '#c1765b' },
 
-  { id: 'soc-1', text: 'IG', type: 'social', width: 60, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'soc-1', text: 'IG', type: 'social', width: 60, bg: '#ffffff', textCol: '#c1765b' },
   { id: 'soc-2', text: 'TK', type: 'social', width: 60, bg: '#c1765b', textCol: '#ffffff' },
-  { id: 'soc-3', text: 'FB', type: 'social', width: 60, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'soc-3', text: 'FB', type: 'social', width: 60, bg: '#ffffff', textCol: '#c1765b' },
   { id: 'soc-4', text: 'YT', type: 'social', width: 60, bg: '#c1765b', textCol: '#ffffff' },
 
-  { id: 'brand', text: 'NALA\'S BABY', type: 'brand', width: 200, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'brand', text: 'NALA\'S BABY', type: 'brand', width: 200, bg: '#ffffff', textCol: '#c1765b' },
   { id: 'news', text: 'NEWSLETTER', type: 'link', width: 160, bg: '#c1765b', textCol: '#ffffff' },
 ];
 
@@ -189,7 +189,8 @@ const PhysicsFooter = () => {
                     opacity: 0,
                     willChange: 'transform',
                     fontFamily: 'Montserrat, sans-serif',
-                    border: '2px solid rgba(193, 118, 91, 0.2)'
+                    border: item.bg === '#ffffff' ? '3px solid #c1765b' : '3px solid #ffffff',
+                    boxShadow: '0 4px 15px rgba(193, 118, 91, 0.15)'
                 }}
             >
                 {item.text}

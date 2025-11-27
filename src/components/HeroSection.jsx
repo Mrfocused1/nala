@@ -145,8 +145,8 @@ const HeroSection = () => {
             <span className="font-sans font-bold">skincare for</span><br/>
             <span className="font-sans font-bold relative inline-block">
               the most delicate skin
-              {/* Smiley Sticker (now on right) */}
-              <div className="absolute -right-10 -top-3 animate-float-delayed">
+              {/* Smiley Sticker - Hidden on mobile */}
+              <div className="hidden md:block absolute -right-10 -top-3 animate-float-delayed">
                 <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-lg transform -rotate-12">
                   <circle cx="50" cy="50" r="45" fill="#c1765b" />
                   <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="2" strokeDasharray="4 4" opacity="0.6"/>

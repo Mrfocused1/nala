@@ -653,6 +653,15 @@ const SensitiveSkinStage = () => {
               alt="Baby skin care"
               className="w-full h-full object-cover"
             />
+            {/* Sticker */}
+            <motion.img
+              src="/stickers/5.png"
+              alt="Duck sticker"
+              className="absolute bottom-4 left-4 w-16 h-16 md:w-20 md:h-20 pointer-events-none drop-shadow-lg"
+              initial={{ scale: 0, rotate: 45 }}
+              whileInView={{ scale: 1, rotate: 8 }}
+              transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
+            />
           </motion.div>
         </div>
       </motion.div>
@@ -717,6 +726,15 @@ const AwardWinningStage = () => {
               src="https://images.pexels.com/photos/6624310/pexels-photo-6624310.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Award winning products"
               className="w-full h-full object-cover"
+            />
+            {/* Sticker */}
+            <motion.img
+              src="/stickers/11.png"
+              alt="Sun sticker"
+              className="absolute top-4 left-4 w-16 h-16 md:w-20 md:h-20 pointer-events-none drop-shadow-lg"
+              initial={{ scale: 0, rotate: -45 }}
+              whileInView={{ scale: 1, rotate: -15 }}
+              transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
             />
           </motion.div>
 
@@ -807,6 +825,15 @@ const MadeInBritainStage = () => {
               alt="Quality production"
               className="w-full h-full object-cover"
             />
+            {/* Sticker */}
+            <motion.img
+              src="/stickers/8.png"
+              alt="Hot air balloon sticker"
+              className="absolute bottom-4 right-4 w-16 h-16 md:w-20 md:h-20 pointer-events-none drop-shadow-lg"
+              initial={{ scale: 0, rotate: 45 }}
+              whileInView={{ scale: 1, rotate: 12 }}
+              transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
+            />
           </motion.div>
         </div>
       </motion.div>
@@ -875,6 +902,15 @@ const NaturalIngredientsStage = () => {
               src="https://images.pexels.com/photos/5582608/pexels-photo-5582608.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Natural ingredients"
               className="w-full h-full object-cover"
+            />
+            {/* Sticker */}
+            <motion.img
+              src="/stickers/10.png"
+              alt="Leaf sticker"
+              className="absolute top-4 right-4 w-16 h-16 md:w-20 md:h-20 pointer-events-none drop-shadow-lg"
+              initial={{ scale: 0, rotate: -45 }}
+              whileInView={{ scale: 1, rotate: -12 }}
+              transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
             />
           </motion.div>
 

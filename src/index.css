@@ -35,8 +35,11 @@ body {
   overflow-x: hidden;
 }
 
-.hero-cursor-hidden {
-  cursor: none;
+/* Only hide cursor on desktop */
+@media (min-width: 768px) {
+  .hero-cursor-hidden {
+    cursor: none;
+  }
 }
 
 #custom-cursor {

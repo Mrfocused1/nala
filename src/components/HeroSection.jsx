@@ -160,8 +160,8 @@ const HeroSection = () => {
         </div>
       </main>
 
-      {/* Custom Cursor */}
-      <div ref={cursorRef} id="custom-cursor">
+      {/* Custom Cursor - Hidden on mobile */}
+      <div ref={cursorRef} id="custom-cursor" className="hidden md:block">
         <div className={`cursor-icon text-white ${isClicking ? 'scale-80 -rotate-10' : ''} ${isHovering ? 'scale-120' : ''}`}>
           <FaHandPointUp style={{ transform: 'rotate(-15deg)' }} />
         </div>

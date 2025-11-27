@@ -45,9 +45,23 @@ const CustomCursor = ({ text }) => {
     return () => window.removeEventListener('mousemove', updateMousePosition);
   }, []);
 
+  // Don't render on mobile/touch devices
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  if (isMobile) return null;
+
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[100] hidden md:flex items-center justify-center mix-blend-difference"
+      className="fixed top-0 left-0 pointer-events-none z-[100] flex items-center justify-center mix-blend-difference"
       animate={{
         x: mousePosition.x - (text ? 50 : 10),
         y: mousePosition.y - (text ? 50 : 10),
@@ -129,7 +143,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#fff5eb] text-[#333333] font-sans overflow-x-hidden selection:bg-[#c1765b]/20 selection:text-[#c1765b] cursor-none">
+    <div className="w-full min-h-screen bg-[#fff5eb] text-[#333333] font-sans overflow-x-hidden selection:bg-[#c1765b]/20 selection:text-[#c1765b] md:cursor-none">
       <CustomCursor text={cursorText} />
 
       {/* Logo */}

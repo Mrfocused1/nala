@@ -529,7 +529,7 @@ const JourneySection = () => {
       </div>
 
       {/* Hero */}
-      <div className="relative z-10 h-screen flex flex-col items-center justify-center text-center px-4">
+      <div className="relative z-10 h-screen flex flex-col items-center justify-center text-center px-8 md:px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -539,7 +539,7 @@ const JourneySection = () => {
           <h1 className="text-4xl md:text-6xl font-black text-[#333333] tracking-tighter mb-6">
             WHY <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>FAMILIES</span> TRUST US<span className="text-[#333333]">.</span>
           </h1>
-          <p className="text-base md:text-lg text-[#6c757d] max-w-2xl mx-auto leading-relaxed text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+          <p className="text-base md:text-lg text-[#6c757d] max-w-2xl mx-auto leading-relaxed text-center px-4 md:px-0" style={{ fontFamily: 'Montserrat, sans-serif' }}>
             Award-winning, naturally derived skincare that puts your family's health first — every single day.
           </p>
         </motion.div>
@@ -565,7 +565,7 @@ const JourneySection = () => {
 
         <MadeInBritainStage />
 
-        <div className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-20 lg:px-40 py-24">
+        <div className="relative z-10 min-h-screen flex items-center justify-center px-8 md:px-20 lg:px-40 py-24">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -573,7 +573,7 @@ const JourneySection = () => {
             className="w-full md:w-[70%] lg:w-[60%] text-center"
           >
             <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-6 leading-tight">Your Family's Choice</h2>
-            <p className="text-base md:text-lg text-[#6c757d] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <p className="text-base md:text-lg text-[#6c757d] leading-relaxed px-4 md:px-0" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Thousands of families trust Nala's Baby for their little ones' skincare needs. Join our community and discover gentle, natural products that work — all at a price that makes clean beauty accessible to everyone. Because every baby deserves the very best.
             </p>
           </motion.div>

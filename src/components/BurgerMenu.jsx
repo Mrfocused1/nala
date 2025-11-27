@@ -41,9 +41,6 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               <source src="https://videos.pexels.com/video-files/6849063/6849063-hd_1920_1080_24fps.mp4" type="video/mp4" />
             </video>
 
-            {/* Terracotta Overlay */}
-            <div className="absolute inset-0 bg-[#c1765b]/85 backdrop-blur-[2px]" />
-
             {/* Menu Content */}
             <nav className="pointer-events-auto relative z-10">
               <ul className="space-y-8">
@@ -58,7 +55,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                     <Link
                       to={item.path}
                       onClick={handleLinkClick}
-                      className="text-6xl md:text-8xl font-black text-[#fff5eb] hover:text-[#fff5eb]/60 transition-colors pointer-events-auto cursor-pointer block"
+                      className="text-5xl md:text-6xl lg:text-7xl font-black text-white hover:text-white/60 transition-colors pointer-events-auto cursor-pointer block drop-shadow-2xl"
                       style={{ fontFamily: 'Inter, sans-serif' }}
                     >
                       {item.name}

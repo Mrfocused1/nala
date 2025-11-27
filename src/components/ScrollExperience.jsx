@@ -54,8 +54,8 @@ const ExperienceContent = () => {
   const phrase = "GENTLE ON SKIN KIND TO NATURE SAFE FOR YOUR FAMILY ";
   const chars = phrase.split('').map((char, index) => {
     let icon = null;
-    if (index === 14) icon = <Heart className="text-[#c1765b] w-[8vw] h-[8vw] inline-block align-middle mx-2" fill="currentColor" />;
-    if (index === 35) icon = <Heart className="text-[#c1765b] w-[8vw] h-[8vw] inline-block align-middle mx-2" fill="currentColor" />;
+    if (index === 14) icon = <img src="/stickers/11.png" alt="sun sticker" className="w-[8vw] h-[8vw] inline-block align-middle mx-2 drop-shadow-lg" style={{ transform: 'rotate(-12deg)' }} />;
+    if (index === 35) icon = <img src="/stickers/10.png" alt="leaf sticker" className="w-[8vw] h-[8vw] inline-block align-middle mx-2 drop-shadow-lg" style={{ transform: 'rotate(8deg)' }} />;
 
     return { char, icon, id: index };
   });

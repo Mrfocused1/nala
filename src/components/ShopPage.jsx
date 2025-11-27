@@ -143,35 +143,35 @@ const ShopPage = () => {
       <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex flex-col items-center justify-center pt-32 pb-16 px-8">
+      <section className="relative min-h-[50vh] flex flex-col items-center justify-center pt-40 pb-20 px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center"
+          className="text-center max-w-5xl mx-auto"
         >
-          <h1 className="text-6xl md:text-8xl font-black text-[#333333] tracking-tighter mb-6">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#333333] tracking-tighter mb-8 leading-none">
             SHOP <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>COLLECTION</span>
           </h1>
-          <p className="text-lg md:text-xl text-[#6c757d] max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+          <p className="text-base md:text-lg text-[#6c757d] max-w-xl mx-auto leading-relaxed px-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
             Naturally derived, paediatrician approved skincare for your little ones.
           </p>
         </motion.div>
       </section>
 
       {/* Category Filter */}
-      <section className="px-8 md:px-20 mb-12">
-        <div className="flex flex-wrap gap-4 justify-center">
+      <section className="px-8 md:px-20 mb-16">
+        <div className="flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`px-6 py-3 rounded-full font-bold uppercase text-sm tracking-wider transition-all ${
+              className={`px-8 py-3 font-bold uppercase text-xs tracking-widest transition-all duration-300 ${
                 selectedCategory === category.id
-                  ? 'bg-[#c1765b] text-white shadow-lg scale-105'
-                  : 'bg-white text-[#c1765b] border-2 border-[#c1765b]/20 hover:border-[#c1765b]'
+                  ? 'bg-[#c1765b] text-white shadow-lg scale-105 border-2 border-[#c1765b]'
+                  : 'bg-white text-[#c1765b] border-2 border-[#c1765b] hover:bg-[#c1765b] hover:text-white'
               }`}
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
+              style={{ fontFamily: 'Montserrat, sans-serif', borderRadius: '4px' }}
             >
               {category.name}
             </button>

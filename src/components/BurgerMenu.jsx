@@ -41,6 +41,30 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               <source src="https://videos.pexels.com/video-files/6849063/6849063-hd_1920_1080_24fps.mp4" type="video/mp4" />
             </video>
 
+            {/* Close Button */}
+            <motion.button
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              onClick={onClose}
+              className="absolute top-8 right-8 md:top-12 md:right-12 z-20 pointer-events-auto group"
+              aria-label="Close menu"
+            >
+              <div className="relative w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-2xl group-hover:scale-110 transition-transform"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+            </motion.button>
+
             {/* Menu Content */}
             <nav className="pointer-events-auto relative z-10">
               <ul className="space-y-8">

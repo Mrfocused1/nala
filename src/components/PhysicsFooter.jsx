@@ -196,11 +196,6 @@ const PhysicsFooter = () => {
             </div>
         ))}
 
-        {/* Background Static Elements */}
-        <div className="absolute bottom-0 w-full bg-[#c1765b] text-white p-4 text-center font-bold text-xs uppercase tracking-widest flex justify-between px-6 z-10 pointer-events-none" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-            <span>© {new Date().getFullYear()} Nala's Baby</span>
-            <span className="md:ml-auto">Gentle Care, Every Day</span>
-        </div>
     </footer>
   );
 };

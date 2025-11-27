@@ -8,6 +8,7 @@ const HeroSection = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const feedbackContainerRef = useRef(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     // Custom cursor tracking
@@ -85,11 +86,6 @@ const HeroSection = () => {
 
       {/* Header / Nav */}
       <header className="fixed top-0 left-0 w-full z-40 pointer-events-none">
-        {/* Left: Burger Menu */}
-        <div className="absolute left-[50px] top-[16px]">
-          <BurgerMenu />
-        </div>
-
         {/* Center: Logo */}
         <div className="absolute left-1/2 -translate-x-1/2 top-[20px] pointer-events-auto">
           <img
@@ -98,7 +94,46 @@ const HeroSection = () => {
             className="h-16 md:h-20 w-auto drop-shadow-lg hover:scale-105 transition-transform cursor-pointer"
           />
         </div>
+
+        {/* Right: Menu Button */}
+        <div className="absolute right-[50px] top-[24px] pointer-events-auto">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMenuOpen(!isMenuOpen);
+            }}
+            className="group transition-transform hover:translate-x-1"
+          >
+            <span className="relative inline-block">
+              <span
+                className="text-xl md:text-2xl italic font-light tracking-wide transition-colors text-[#c1765b] hover:text-white"
+                style={{
+                  fontFamily: 'Playfair Display, serif',
+                  textShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}
+              >
+                menu
+              </span>
+              <svg
+                className="absolute -top-[50%] -left-[25%] w-[150%] h-[200%] pointer-events-none overflow-visible"
+                viewBox="0 0 200 100"
+              >
+                <path
+                  d="M 20 40 C 20 20, 80 10, 150 20 C 200 30, 190 80, 140 85 C 90 90, 30 80, 25 50"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  className="opacity-80"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
       </header>
+
+      {/* Burger Menu */}
+      <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
       {/* Hero Content */}
       <main className="absolute inset-x-0 bottom-[200px] md:bottom-[220px] flex justify-center z-10 pointer-events-none px-4">

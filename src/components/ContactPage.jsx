@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Heart, Zap, Flame, Send, Mail } from 'lucide-react';
+import BurgerMenu from './BurgerMenu';
 
 // --- Components ---
 
@@ -119,6 +120,7 @@ const TiltCard = ({ children, className, onClick }) => {
 const ContactPage = () => {
   const [status, setStatus] = useState('idle'); // idle | submitting | success
   const [cursorText, setCursorText] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -129,10 +131,69 @@ const ContactPage = () => {
   return (
     <div className="w-full min-h-screen bg-[#fff5eb] text-[#333333] font-sans overflow-x-hidden selection:bg-[#c1765b]/20 selection:text-[#c1765b] cursor-none">
       <CustomCursor text={cursorText} />
+
+      {/* Logo */}
+      <div className="fixed left-1/2 -translate-x-1/2 top-[20px] z-40 pointer-events-auto">
+        <img
+          src="/nala-2.png"
+          alt="Nala's Baby Logo"
+          className="h-16 md:h-20 w-auto drop-shadow-lg hover:scale-105 transition-transform cursor-pointer"
+        />
+      </div>
+
+      {/* Right: Menu Button */}
+      <div className="fixed right-[50px] top-[24px] z-40 pointer-events-auto">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(!isMenuOpen);
+          }}
+          className="group transition-transform hover:translate-x-1"
+        >
+          <span className="relative inline-block">
+            <span
+              className="text-xl md:text-2xl italic font-light tracking-wide transition-colors text-[#c1765b] hover:text-white"
+              style={{
+                fontFamily: 'Playfair Display, serif',
+                textShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}
+            >
+              menu
+            </span>
+            <svg
+              className="absolute -top-[50%] -left-[25%] w-[150%] h-[200%] pointer-events-none overflow-visible"
+              viewBox="0 0 200 100"
+            >
+              <path
+                d="M 20 40 C 20 20, 80 10, 150 20 C 200 30, 190 80, 140 85 C 90 90, 30 80, 25 50"
+                fill="none"
+                stroke="white"
+                strokeWidth="3"
+                strokeLinecap="round"
+                className="opacity-80"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      {/* Burger Menu */}
+      <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+
       {/* --- HERO SECTION: CHAOS MARQUEE --- */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Noise/Gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#ffeddb] to-[#fff5eb] z-0" />
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="https://videos.pexels.com/video-files/6849063/6849063-hd_1920_1080_24fps.mp4" type="video/mp4" />
+          </video>
+        </div>
 
         <div className="relative z-10 w-full h-full flex flex-col justify-center items-center">
            {/* Marquee 1: Tilted Left */}

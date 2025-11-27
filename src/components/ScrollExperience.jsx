@@ -279,14 +279,22 @@ const ExperienceContent = () => {
           <text
             fill="white"
             fontSize="50"
-            fontWeight="700"
-            letterSpacing="2"
-            fontFamily="'Oswald', 'Inter', sans-serif"
             dy="15"
-            className="uppercase"
           >
             <textPath href="#snakeCurvePath" startOffset="0%" ref={snakeTextRef}>
-              NATURALLY GENTLE • DERMATOLOGIST APPROVED • NATURALLY GENTLE • DERMATOLOGIST APPROVED • NATURALLY GENTLE • DERMATOLOGIST APPROVED •
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2">NATURALLY </tspan>
+              <tspan fontFamily="'Playfair Display', serif" fontWeight="300" fontStyle="italic" letterSpacing="2">gentle</tspan>
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2"> • DERMATOLOGIST </tspan>
+              <tspan fontFamily="'Playfair Display', serif" fontWeight="300" fontStyle="italic" letterSpacing="2">approved</tspan>
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2"> • NATURALLY </tspan>
+              <tspan fontFamily="'Playfair Display', serif" fontWeight="300" fontStyle="italic" letterSpacing="2">gentle</tspan>
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2"> • DERMATOLOGIST </tspan>
+              <tspan fontFamily="'Playfair Display', serif" fontWeight="300" fontStyle="italic" letterSpacing="2">approved</tspan>
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2"> • NATURALLY </tspan>
+              <tspan fontFamily="'Playfair Display', serif" fontWeight="300" fontStyle="italic" letterSpacing="2">gentle</tspan>
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2"> • DERMATOLOGIST </tspan>
+              <tspan fontFamily="'Playfair Display', serif" fontWeight="300" fontStyle="italic" letterSpacing="2">approved</tspan>
+              <tspan fontFamily="'Inter', sans-serif" fontWeight="700" letterSpacing="2"> •</tspan>
             </textPath>
           </text>
         </svg>
@@ -547,21 +555,15 @@ const JourneySection = () => {
 
       {/* Sections */}
       <div className="relative pb-32">
-        <JourneyStage align="left" title={<>Natural <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Ingredients</span></>} icon={Compass} index={1}>
-          We believe in the power of nature. Every product is lovingly crafted with naturally derived ingredients — gentle on delicate skin, free from harsh chemicals. Because what goes on your baby's skin matters just as much as what doesn't.
-        </JourneyStage>
+        {/* Natural Ingredients Section with Image Containers */}
+        <NaturalIngredientsStage />
 
-        <JourneyStage align="right" title={<><span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Sensitive</span> Skin Safe</>} icon={MapPin} index={2}>
-          Specially formulated for the most delicate skin. Paediatrician approved and dermatologist tested, our products are kind to sensitive skin — from newborns to toddlers and beyond. Safe, gentle care your whole family can trust.
-        </JourneyStage>
 
-        <JourneyStage align="left" title={<>Award-Winning <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Care</span></>} icon={Zap} index={3}>
-          Recognised for excellence. Our award-winning formulas combine trusted ingredients with real results. Vegan, cruelty-free, and loved by families across the UK. Clean skincare that truly delivers.
-        </JourneyStage>
+        <SensitiveSkinStage />
 
-        <JourneyStage align="right" title={<>Made in <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Britain</span></>} icon={Users} index={4}>
-          Proudly made in Britain with care and integrity. We're committed to ethical production, sustainable practices, and making clean skincare accessible to every family. Quality you can see, trust you can feel.
-        </JourneyStage>
+        <AwardWinningStage />
+
+        <MadeInBritainStage />
 
         <div className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-20 lg:px-40 py-24">
           <motion.div
@@ -577,6 +579,319 @@ const JourneySection = () => {
           </motion.div>
         </div>
       </div>
+    </div>
+  );
+};
+
+// Sensitive Skin Safe Stage Component with Image Containers
+const SensitiveSkinStage = () => {
+  const ref = useRef(null);
+  const [padding, setPadding] = useState(160);
+
+  useEffect(() => {
+    const updatePadding = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setPadding(60);
+      } else if (width < 1024) {
+        setPadding(120);
+      } else {
+        setPadding(200);
+      }
+    };
+
+    updatePadding();
+    window.addEventListener('resize', updatePadding);
+    return () => window.removeEventListener('resize', updatePadding);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  return (
+    <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
+      <motion.div
+        style={{ y, opacity }}
+        className="w-full flex flex-col md:flex-row-reverse items-center gap-12 md:gap-16"
+      >
+        {/* Right Side: Text Content */}
+        <div className="max-w-3xl text-left" style={{ paddingLeft: `${padding}px` }}>
+          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-8 md:mb-10 leading-tight">
+            <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Sensitive</span> Skin Safe
+          </h2>
+          <p className="text-base md:text-lg text-[#8b5a3c] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            Specially formulated for the most delicate skin. Paediatrician approved and dermatologist tested, our products are kind to sensitive skin — from newborns to toddlers and beyond. Safe, gentle care your whole family can trust.
+          </p>
+        </div>
+
+        {/* Left Side: Two Overlapping Image Containers */}
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/3737154/pexels-photo-3737154.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Sensitive skin care"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/4473602/pexels-photo-4473602.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Baby skin care"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// Award-Winning Care Stage Component with Image Containers
+const AwardWinningStage = () => {
+  const ref = useRef(null);
+  const [padding, setPadding] = useState(160);
+
+  useEffect(() => {
+    const updatePadding = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setPadding(60);
+      } else if (width < 1024) {
+        setPadding(120);
+      } else {
+        setPadding(200);
+      }
+    };
+
+    updatePadding();
+    window.addEventListener('resize', updatePadding);
+    return () => window.removeEventListener('resize', updatePadding);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  return (
+    <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
+      <motion.div
+        style={{ y, opacity }}
+        className="w-full flex flex-col md:flex-row items-center gap-12 md:gap-16"
+      >
+        {/* Left Side: Text Content */}
+        <div className="max-w-3xl text-right" style={{ paddingRight: `${padding}px` }}>
+          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-8 md:mb-10 leading-tight">
+            Award-Winning <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Care</span>
+          </h2>
+          <p className="text-base md:text-lg text-[#8b5a3c] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            Recognised for excellence. Our award-winning formulas combine trusted ingredients with real results. Vegan, cruelty-free, and loved by families across the UK. Clean skincare that truly delivers.
+          </p>
+        </div>
+
+        {/* Right Side: Two Overlapping Image Containers */}
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/6624310/pexels-photo-6624310.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Award winning products"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/7282308/pexels-photo-7282308.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Quality care"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// Made in Britain Stage Component with Image Containers
+const MadeInBritainStage = () => {
+  const ref = useRef(null);
+  const [padding, setPadding] = useState(160);
+
+  useEffect(() => {
+    const updatePadding = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setPadding(60);
+      } else if (width < 1024) {
+        setPadding(120);
+      } else {
+        setPadding(200);
+      }
+    };
+
+    updatePadding();
+    window.addEventListener('resize', updatePadding);
+    return () => window.removeEventListener('resize', updatePadding);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  return (
+    <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
+      <motion.div
+        style={{ y, opacity }}
+        className="w-full flex flex-col md:flex-row-reverse items-center gap-12 md:gap-16"
+      >
+        {/* Right Side: Text Content */}
+        <div className="max-w-3xl text-left" style={{ paddingLeft: `${padding}px` }}>
+          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-8 md:mb-10 leading-tight">
+            Made in <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Britain</span>
+          </h2>
+          <p className="text-base md:text-lg text-[#8b5a3c] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            Proudly made in Britain with care and integrity. We're committed to ethical production, sustainable practices, and making clean skincare accessible to every family. Quality you can see, trust you can feel.
+          </p>
+        </div>
+
+        {/* Left Side: Two Overlapping Image Containers */}
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/3992933/pexels-photo-3992933.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Made in Britain"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Quality production"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+
+// Natural Ingredients Stage Component with Image Containers
+const NaturalIngredientsStage = () => {
+  const ref = useRef(null);
+  const [padding, setPadding] = useState(160);
+
+  useEffect(() => {
+    const updatePadding = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        // Mobile
+        setPadding(60);
+      } else if (width < 1024) {
+        // Tablet
+        setPadding(120);
+      } else {
+        // Desktop
+        setPadding(200);
+      }
+    };
+
+    updatePadding();
+    window.addEventListener('resize', updatePadding);
+    return () => window.removeEventListener('resize', updatePadding);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  return (
+    <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
+      <motion.div
+        style={{ y, opacity }}
+        className="w-full flex flex-col md:flex-row items-center gap-12 md:gap-16"
+      >
+        {/* Left Side: Text Content */}
+        <div className="max-w-3xl text-right" style={{ paddingRight: `${padding}px` }}>
+          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-8 md:mb-10 leading-tight">
+            Natural <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Ingredients</span>
+          </h2>
+          <p className="text-base md:text-lg text-[#8b5a3c] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            We believe in the power of nature. Every product is lovingly crafted with naturally derived ingredients — gentle on delicate skin, free from harsh chemicals. Because what goes on your baby's skin matters just as much as what doesn't.
+          </p>
+        </div>
+
+        {/* Right Side: Two Overlapping Image Containers */}
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+          {/* First Image Container */}
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/5582608/pexels-photo-5582608.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Natural ingredients"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* Second Image Container - Overlapping */}
+          <motion.div
+            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Baby skincare"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
     </div>
   );
 };

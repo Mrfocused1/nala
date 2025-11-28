@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Heart, Zap, Flame, Send, Mail } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
-import CloudWatchForm from './CloudWatchForm';
+import CloudWatchForm from './CloudWatchForm.tsx';
 
 // --- Components ---
 

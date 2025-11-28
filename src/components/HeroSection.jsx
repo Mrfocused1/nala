@@ -143,12 +143,8 @@ const HeroSection = () => {
             <span className="font-sans font-bold">gentle </span>
             <span className="italic font-light tracking-wide mx-2" style={{ fontFamily: 'Playfair Display, serif' }}>natural </span>
             <span className="font-sans font-bold">skincare for</span><br/>
-            <span className="font-sans font-bold relative inline-block">
+            <span className="font-sans font-bold">
               the most delicate skin
-              {/* Sticker - Hidden on mobile */}
-              <div className="hidden md:block absolute -right-10 -top-3 animate-float-delayed">
-                <img src="/stickers/2.png" alt="sticker" className="w-16 h-16 drop-shadow-lg transform -rotate-12" />
-              </div>
             </span>
           </h2>
         </div>

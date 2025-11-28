@@ -96,7 +96,7 @@ const NaturallyHoverCard = () => {
             playsInline
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           >
-            <source src="https://videos.pexels.com/video-files/6849063/6849063-hd_1920_1080_24fps.mp4" type="video/mp4" />
+            <source src="/products/video 3.mp4" type="video/mp4" />
           </video>
           <style>{`
             @keyframes bounceIn {
@@ -685,8 +685,34 @@ const JourneySection = () => {
 // Sensitive Skin Safe Stage Component with Image Containers
 const SensitiveSkinStage = () => {
   const ref = useRef(null);
+  const videoRef = useRef(null);
   const [padding, setPadding] = useState(160);
   const [isSwapped, setIsSwapped] = useState(false);
+
+  // Intersection Observer to control video playback
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(err => console.log('Video play failed:', err));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, []);
 
   useEffect(() => {
     const updatePadding = () => {
@@ -742,9 +768,12 @@ const SensitiveSkinStage = () => {
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <img
-              src="https://images.pexels.com/photos/3737154/pexels-photo-3737154.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Sensitive skin care"
+            <video
+              ref={videoRef}
+              src="/products/video 4.mp4"
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover"
             />
             {/* Sticker */}
@@ -764,7 +793,7 @@ const SensitiveSkinStage = () => {
             transition={{ duration: 0.3 }}
           >
             <img
-              src="https://images.pexels.com/photos/4473602/pexels-photo-4473602.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="/baby pic.jpg"
               alt="Baby skin care"
               className="w-full h-full object-cover"
             />
@@ -778,8 +807,34 @@ const SensitiveSkinStage = () => {
 // Award-Winning Care Stage Component with Image Containers
 const AwardWinningStage = () => {
   const ref = useRef(null);
+  const videoRef = useRef(null);
   const [padding, setPadding] = useState(160);
   const [isSwapped, setIsSwapped] = useState(false);
+
+  // Intersection Observer to control video playback
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(err => console.log('Video play failed:', err));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(video);
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
+  }, []);
 
   useEffect(() => {
     const updatePadding = () => {
@@ -835,9 +890,12 @@ const AwardWinningStage = () => {
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <img
-              src="https://images.pexels.com/photos/6624310/pexels-photo-6624310.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Award winning products"
+            <video
+              ref={videoRef}
+              src="/products/video 5.mp4"
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover"
             />
             {/* Sticker */}
@@ -857,7 +915,7 @@ const AwardWinningStage = () => {
             transition={{ duration: 0.3 }}
           >
             <img
-              src="https://images.pexels.com/photos/7282308/pexels-photo-7282308.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="/story/baby-1.jpg"
               alt="Quality care"
               className="w-full h-full object-cover"
             />
@@ -871,6 +929,7 @@ const AwardWinningStage = () => {
 // Made in Britain Stage Component with Image Containers
 const MadeInBritainStage = () => {
   const ref = useRef(null);
+  const videoRef = useRef(null);
   const [padding, setPadding] = useState(160);
   const [isSwapped, setIsSwapped] = useState(false);
 
@@ -889,6 +948,32 @@ const MadeInBritainStage = () => {
     updatePadding();
     window.addEventListener('resize', updatePadding);
     return () => window.removeEventListener('resize', updatePadding);
+  }, []);
+
+  // Intersection Observer to control video playback
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(err => console.log('Video play failed:', err));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 } // Play when 50% of video is visible
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -928,9 +1013,12 @@ const MadeInBritainStage = () => {
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <img
-              src="https://images.pexels.com/photos/3992933/pexels-photo-3992933.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Made in Britain"
+            <video
+              ref={videoRef}
+              src="/products/video 1.mp4"
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover"
             />
             {/* Sticker */}
@@ -950,7 +1038,7 @@ const MadeInBritainStage = () => {
             transition={{ duration: 0.3 }}
           >
             <img
-              src="https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="/story/baby-2.jpg"
               alt="Quality production"
               className="w-full h-full object-cover"
             />
@@ -964,6 +1052,7 @@ const MadeInBritainStage = () => {
 // Natural Ingredients Stage Component with Image Containers
 const NaturalIngredientsStage = () => {
   const ref = useRef(null);
+  const videoRef = useRef(null);
   const [padding, setPadding] = useState(160);
   const [isSwapped, setIsSwapped] = useState(false);
 
@@ -985,6 +1074,32 @@ const NaturalIngredientsStage = () => {
     updatePadding();
     window.addEventListener('resize', updatePadding);
     return () => window.removeEventListener('resize', updatePadding);
+  }, []);
+
+  // Intersection Observer to control video playback
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(err => console.log('Video play failed:', err));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 } // Play when 50% of video is visible
+    );
+
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+      video.pause();
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -1025,9 +1140,12 @@ const NaturalIngredientsStage = () => {
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
-            <img
-              src="https://images.pexels.com/photos/5582608/pexels-photo-5582608.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Natural ingredients"
+            <video
+              ref={videoRef}
+              src="/products/video 2.mp4"
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover"
             />
             {/* Sticker */}
@@ -1048,7 +1166,7 @@ const NaturalIngredientsStage = () => {
             transition={{ duration: 0.3 }}
           >
             <img
-              src="https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&w=800"
+              src="/story/baby-3.jpg"
               alt="Baby skincare"
               className="w-full h-full object-cover"
             />

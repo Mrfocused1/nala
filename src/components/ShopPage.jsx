@@ -251,9 +251,6 @@ const ShopPage = () => {
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#333333] tracking-tighter mb-8 leading-none text-center">
             SHOP <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>COLLECTION</span>
           </h1>
-          <p className="text-base md:text-lg text-[#6c757d] max-w-xl mx-auto leading-relaxed px-4 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-            Naturally derived, paediatrician approved skincare for your little ones.
-          </p>
         </motion.div>
       </section>
 

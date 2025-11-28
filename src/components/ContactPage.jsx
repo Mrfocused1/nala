@@ -207,7 +207,7 @@ const ContactPage = () => {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="https://videos.pexels.com/video-files/6849063/6849063-hd_1920_1080_24fps.mp4" type="video/mp4" />
+            <source src="/contact-hero.mp4" type="video/mp4" />
           </video>
         </div>
 

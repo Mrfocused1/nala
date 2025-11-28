@@ -1,25 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ArrowDown } from 'lucide-react';
+import { FaTiktok, FaInstagram, FaFacebook, FaYoutube, FaTwitter } from 'react-icons/fa';
 
 // Footer items adapted for Nala's Baby
 const FOOTER_ITEMS = [
-  { id: 'shop-1', text: 'Body Wash', type: 'link', width: 140, bg: '#c1765b', textCol: '#ffffff' },
-  { id: 'shop-2', text: 'Lotions', type: 'link', width: 120, bg: '#c1765b', textCol: '#ffffff' },
-  { id: 'shop-3', text: 'Hair Care', type: 'link', width: 130, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'shop-4', text: 'Bundles', type: 'link', width: 120, bg: '#ffffff', textCol: '#c1765b' },
+  { id: 'shop-1', text: 'Body Wash', type: 'link', width: 180, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'shop-2', text: 'Lotions', type: 'link', width: 140, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'shop-3', text: 'Hair Care', type: 'link', width: 160, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'shop-4', text: 'Bundles', type: 'link', width: 140, bg: 'transparent', textCol: '#c1765b' },
 
-  { id: 'help-1', text: 'Shipping', type: 'link', width: 120, bg: '#c1765b', textCol: '#ffffff' },
-  { id: 'help-2', text: 'Returns', type: 'link', width: 110, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'help-3', text: 'FAQ', type: 'link', width: 80, bg: '#c1765b', textCol: '#ffffff' },
-  { id: 'help-4', text: 'Contact', type: 'link', width: 120, bg: '#ffffff', textCol: '#c1765b' },
+  { id: 'help-1', text: 'Shipping', type: 'link', width: 150, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'help-2', text: 'Returns', type: 'link', width: 140, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'help-3', text: 'FAQ', type: 'link', width: 80, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'help-4', text: 'Contact', type: 'link', width: 140, bg: 'transparent', textCol: '#c1765b' },
 
-  { id: 'soc-1', text: 'IG', type: 'social', width: 60, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'soc-2', text: 'TK', type: 'social', width: 60, bg: '#c1765b', textCol: '#ffffff' },
-  { id: 'soc-3', text: 'FB', type: 'social', width: 60, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'soc-4', text: 'YT', type: 'social', width: 60, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'soc-1', text: 'Instagram', type: 'social', width: 70, bg: 'transparent', textCol: '#E4405F', url: 'https://www.instagram.com/nalasbabyuk/', icon: 'instagram' },
+  { id: 'soc-2', text: 'TikTok', type: 'social', width: 70, bg: 'transparent', textCol: '#000000', url: 'https://www.tiktok.com/@nalasbaby', icon: 'tiktok' },
+  { id: 'soc-3', text: 'Facebook', type: 'social', width: 70, bg: 'transparent', textCol: '#1877F2', url: 'https://www.facebook.com/Nalasbaby', icon: 'facebook' },
+  { id: 'soc-4', text: 'YouTube', type: 'social', width: 70, bg: 'transparent', textCol: '#FF0000', url: 'https://www.youtube.com/channel/UCJ5HnLYb4Aa5yzRfAbZLfSw/', icon: 'youtube' },
+  { id: 'soc-5', text: 'Twitter', type: 'social', width: 70, bg: 'transparent', textCol: '#1DA1F2', url: 'https://twitter.com/nalasbaby', icon: 'twitter' },
 
-  { id: 'brand', text: 'NALA\'S BABY', type: 'brand', width: 200, bg: '#ffffff', textCol: '#c1765b' },
-  { id: 'news', text: 'NEWSLETTER', type: 'link', width: 160, bg: '#c1765b', textCol: '#ffffff' },
+  { id: 'brand', text: 'NALA\'S BABY', type: 'brand', width: 240, bg: 'transparent', textCol: '#c1765b' },
+  { id: 'news', text: 'NEWSLETTER', type: 'link', width: 200, bg: 'transparent', textCol: '#c1765b' },
 ];
 
 const loadScript = (src) => {
@@ -37,6 +40,7 @@ const loadScript = (src) => {
 };
 
 const PhysicsFooter = () => {
+  const location = useLocation();
   const containerRef = useRef(null);
   const itemsRef = useRef({});
   const engineRef = useRef(null);
@@ -58,6 +62,29 @@ const PhysicsFooter = () => {
       }
     };
   }, []);
+
+  // Reset animation when route changes
+  useEffect(() => {
+    // Clean up existing physics
+    if (runnerRef.current && engineRef.current) {
+      const Matter = window.Matter;
+      if (Matter && Matter.Runner) {
+        Matter.Runner.stop(runnerRef.current);
+        Matter.World.clear(engineRef.current.world);
+        Matter.Engine.clear(engineRef.current);
+      }
+    }
+
+    // Reset state to allow animation to trigger again
+    setHasTriggered(false);
+
+    // Reset all item opacities
+    Object.values(itemsRef.current).forEach(el => {
+      if (el) {
+        el.style.opacity = 0;
+      }
+    });
+  }, [location.pathname]);
 
   const triggerDrop = () => {
     if (hasTriggered || !isPhysicsReady || !containerRef.current) return;
@@ -175,28 +202,81 @@ const PhysicsFooter = () => {
             </div>
         )}
 
+        {/* Faded Logo with Promotion Text */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10">
+          <img
+            src="/nala-2.png"
+            alt="Nala's Baby Logo"
+            className="h-32 md:h-48 w-auto opacity-20"
+          />
+          <p className="text-xl md:text-2xl font-black uppercase tracking-tight mt-4 opacity-20 text-[#c1765b]" style={{ fontFamily: 'Inter, sans-serif' }}>
+            33% off Everything
+          </p>
+        </div>
+
         {/* DOM Elements for Physics */}
-        {FOOTER_ITEMS.map(item => (
-            <div
-                key={item.id}
-                ref={el => itemsRef.current[item.id] = el}
-                className={`absolute top-0 left-0 flex items-center justify-center font-bold uppercase text-sm shadow-lg hover:cursor-grab active:cursor-grabbing z-20 transition-opacity duration-300`}
-                style={{
-                    width: item.width || 60,
-                    height: item.type === 'social' ? 60 : 50,
-                    borderRadius: item.type === 'social' ? '50%' : '25px',
-                    backgroundColor: item.bg,
-                    color: item.textCol,
-                    opacity: 0,
-                    willChange: 'transform',
-                    fontFamily: 'Montserrat, sans-serif',
-                    border: item.bg === '#ffffff' ? '3px solid #c1765b' : '3px solid #ffffff',
-                    boxShadow: '0 4px 15px rgba(193, 118, 91, 0.15)'
-                }}
-            >
-                {item.text}
-            </div>
-        ))}
+        {FOOTER_ITEMS.map(item => {
+            const renderContent = () => {
+                if (item.type === 'social') {
+                    // Render icon for social items with brand colors using Font Awesome
+                    const iconSize = 60;
+                    switch (item.icon) {
+                        case 'instagram':
+                            return <FaInstagram size={iconSize} color={item.textCol} />;
+                        case 'tiktok':
+                            return <FaTiktok size={iconSize} color={item.textCol} />;
+                        case 'facebook':
+                            return <FaFacebook size={iconSize} color={item.textCol} />;
+                        case 'youtube':
+                            return <FaYoutube size={iconSize} color={item.textCol} />;
+                        case 'twitter':
+                            return <FaTwitter size={iconSize} color={item.textCol} />;
+                        default:
+                            return item.text;
+                    }
+                }
+                return item.text;
+            };
+
+            const itemElement = (
+                <div
+                    key={item.id}
+                    ref={el => itemsRef.current[item.id] = el}
+                    className={`absolute top-0 left-0 flex items-center justify-center font-black uppercase hover:cursor-grab active:cursor-grabbing z-20 transition-opacity duration-300`}
+                    style={{
+                        width: item.type === 'social' ? item.width : item.width,
+                        height: item.type === 'social' ? item.width : 60,
+                        borderRadius: '0',
+                        backgroundColor: 'transparent',
+                        color: item.textCol,
+                        opacity: 0,
+                        willChange: 'transform',
+                        fontFamily: item.type === 'social' ? 'inherit' : 'Inter, sans-serif',
+                        fontSize: item.type === 'social' ? 'inherit' : '28px',
+                        fontWeight: item.type === 'social' ? 'normal' : '900',
+                        border: 'none',
+                        boxShadow: 'none',
+                        letterSpacing: '0.5px'
+                    }}
+                >
+                    {item.url ? (
+                        <a
+                            href={item.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-full flex items-center justify-center"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {renderContent()}
+                        </a>
+                    ) : (
+                        renderContent()
+                    )}
+                </div>
+            );
+
+            return itemElement;
+        })}
 
     </footer>
   );

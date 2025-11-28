@@ -510,7 +510,7 @@ const ShopSection = () => {
       <div ref={shopContainer} className="relative h-screen bg-[#ffeddb] border-t border-[#c1765b]/20 flex flex-col justify-center overflow-hidden">
 
         {/* Section Header */}
-        <div className="absolute top-10 left-0 w-full flex justify-between items-end z-10" style={{ paddingLeft: '80px', paddingRight: '40px' }}>
+        <div className="absolute top-10 left-0 w-full flex justify-between items-end z-10 px-6 md:px-20" style={{ paddingRight: '40px' }}>
           <div>
             <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333]">
               Browse <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Collection</span>
@@ -557,14 +557,18 @@ const ShopSection = () => {
             ))}
 
           {/* "View All" Card */}
-          <div className="w-[50vw] md:w-[18vw] h-auto aspect-[2/3] flex items-center justify-center border border-dashed border-[#c1765b]/30 hover:bg-white hover:border-[#c1765b] transition-colors cursor-pointer group rounded-2xl">
+          <Link
+            to="/shop"
+            className="w-[50vw] md:w-[18vw] h-auto aspect-[2/3] flex items-center justify-center border border-dashed border-[#c1765b]/30 hover:bg-white hover:border-[#c1765b] transition-colors cursor-pointer group rounded-2xl touch-manipulation"
+            style={{ pointerEvents: 'auto' }}
+          >
             <div className="flex flex-col items-center gap-4">
               <div className="w-16 h-16 rounded-full border border-[#c1765b]/30 flex items-center justify-center group-hover:scale-110 group-hover:border-[#c1765b] transition-all">
                 <ArrowRight className="w-6 h-6 text-[#c1765b]" />
               </div>
               <span className="font-mono text-sm tracking-widest text-[#c1765b]">VIEW ALL</span>
             </div>
-          </div>
+          </Link>
 
         </div>
       </div>
@@ -753,7 +757,7 @@ const SensitiveSkinStage = () => {
       >
         {/* Right Side: Text Content */}
         <div className="max-w-3xl text-left" style={{ paddingLeft: `${padding}px` }}>
-          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-8 md:mb-10 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-4 md:mb-10 leading-tight">
             <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Sensitive</span> Skin Safe
           </h2>
           <p className="text-base md:text-lg text-[#8b5a3c] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>

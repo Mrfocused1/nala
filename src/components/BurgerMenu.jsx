@@ -216,17 +216,26 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              onClick={onClose}
-              className="absolute top-8 right-8 md:top-12 md:right-12 z-20 pointer-events-auto group"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+              }}
+              className="absolute top-8 right-8 md:top-12 md:right-12 z-[100] pointer-events-auto group touch-manipulation"
               aria-label="Close menu"
             >
-              <div className="relative w-12 h-12 md:w-16 md:h-16 flex items-center justify-center">
+              <div className="relative w-16 h-16 md:w-16 md:h-16 flex items-center justify-center bg-white/20 rounded-full">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-2xl group-hover:scale-110 transition-transform"
+                  className="w-10 h-10 md:w-10 md:h-10 text-white drop-shadow-2xl group-hover:scale-110 transition-transform"
                   stroke="currentColor"
-                  strokeWidth="2.5"
+                  strokeWidth="3"
                   strokeLinecap="round"
                 >
                   <line x1="18" y1="6" x2="6" y2="18" />
@@ -240,7 +249,7 @@ const BurgerMenu = ({ isOpen, onClose }) => {
               <div
                 key={item.path}
                 ref={el => itemsRef.current[item.path] = el}
-                className="absolute top-0 left-0 flex items-center justify-center font-bold uppercase text-sm shadow-lg hover:cursor-grab active:cursor-grabbing z-20 transition-opacity duration-300"
+                className="absolute top-0 left-0 flex items-center justify-center font-bold uppercase text-sm shadow-lg md:hover:cursor-grab md:active:cursor-grabbing z-50 transition-opacity duration-300 touch-manipulation"
                 style={{
                   width: item.width,
                   height: 60,
@@ -250,16 +259,21 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                   willChange: 'transform',
                   fontFamily: 'Inter, sans-serif',
                   border: '4px solid #333333',
-                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)'
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
+                  boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+                  pointerEvents: 'auto'
                 }}
               >
                 <Link
                   to={item.path}
-                  onClick={handleLinkClick}
-                  className="w-full h-full flex items-center justify-center text-2xl md:text-3xl font-black"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLinkClick();
+                  }}
+                  onTouchEnd={(e) => {
+                    e.stopPropagation();
+                    handleLinkClick();
+                  }}
+                  className="w-full h-full flex items-center justify-center text-2xl md:text-3xl font-black pointer-events-auto"
                 >
                   {item.name}
                 </Link>
@@ -290,21 +304,23 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                 <div
                   key={item.id}
                   ref={el => itemsRef.current[item.id] = el}
-                  className="absolute top-0 left-0 flex items-center justify-center hover:cursor-grab active:cursor-grabbing z-20 transition-opacity duration-300"
+                  className="absolute top-0 left-0 flex items-center justify-center md:hover:cursor-grab md:active:cursor-grabbing z-50 transition-opacity duration-300 touch-manipulation"
                   style={{
                     width: item.width,
                     height: item.width,
                     backgroundColor: 'transparent',
                     opacity: 0,
-                    willChange: 'transform'
+                    willChange: 'transform',
+                    pointerEvents: 'auto'
                   }}
                 >
                   <a
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full h-full flex items-center justify-center"
+                    className="w-full h-full flex items-center justify-center pointer-events-auto"
                     onClick={(e) => e.stopPropagation()}
+                    onTouchEnd={(e) => e.stopPropagation()}
                   >
                     {renderIcon()}
                   </a>

@@ -133,20 +133,25 @@ const PhysicsFooter = () => {
 
     World.add(engine.world, [floor, leftWall, rightWall, ...itemBodies]);
 
-    // Mouse Control
-    const mouse = Mouse.create(containerRef.current);
-    const mouseConstraint = MouseConstraint.create(engine, {
-        mouse: mouse,
-        constraint: {
-            stiffness: 0.2,
-            render: { visible: false }
-        }
-    });
-    // Allow scrolling over the canvas if not grabbing
-    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+    // Mouse Control - Only on desktop
+    if (window.innerWidth >= 768) {
+      const mouse = Mouse.create(containerRef.current);
+      const mouseConstraint = MouseConstraint.create(engine, {
+          mouse: mouse,
+          constraint: {
+              stiffness: 0.2,
+              render: { visible: false }
+          }
+      });
+      // Allow scrolling over the canvas if not grabbing
+      mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+      mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+      mouse.element.removeEventListener("touchmove", mouse.mousemove);
+      mouse.element.removeEventListener("touchstart", mouse.mousedown);
+      mouse.element.removeEventListener("touchend", mouse.mouseup);
 
-    World.add(engine.world, mouseConstraint);
+      World.add(engine.world, mouseConstraint);
+    }
 
     // Runner
     const runner = Runner.create();

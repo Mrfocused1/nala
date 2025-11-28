@@ -191,7 +191,7 @@ export default function ProductPage() {
           <div className="w-full md:w-3/5 lg:w-2/3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-2">
               {IMAGES.map((img, index) => (
-                <div key={index} className={`relative aspect-[4/5] bg-[#ffeddb] overflow-hidden ${index % 3 === 0 ? 'md:col-span-2' : ''}`}>
+                <div key={index} className={`relative aspect-[4/5] bg-[#ffeddb] overflow-hidden ${index % 3 === 0 ? 'md:col-span-2' : ''} ${index > 0 ? 'hidden md:block' : ''}`}>
                   <img
                     src={img}
                     alt={`Product view ${index + 1}`}

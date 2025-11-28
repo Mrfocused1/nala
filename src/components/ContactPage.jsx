@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Heart, Zap, Flame, Send, Mail } from 'lucide-react';
+import { Heart, Zap, Flame, Send, Mail, CircleCheck, User, MessageCircle } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
 
 // --- Components ---
@@ -128,6 +128,284 @@ const TiltCard = ({ children, className, onClick }) => {
         {children}
       </motion.div>
     </motion.div>
+  );
+};
+
+// Multi-Step Contact Form
+const ContactForm = () => {
+  const [step, setStep] = useState(1);
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleContinue = () => {
+    if (step < 3) {
+      setStep(step + 1);
+      setIsExpanded(false);
+    } else {
+      // Submit form
+      setIsSubmitted(true);
+    }
+  };
+
+  const handleBack = () => {
+    if (step === 2) {
+      setIsExpanded(true);
+    }
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const isStepValid = () => {
+    if (step === 1) return formData.name && formData.email;
+    if (step === 2) return formData.subject && formData.message;
+    return true;
+  };
+
+  if (isSubmitted) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="text-center py-20"
+      >
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", bounce: 0.5 }}
+          className="inline-block mb-6"
+        >
+          <CircleCheck size={80} className="text-[#c1765b]" />
+        </motion.div>
+        <h3 className="text-4xl font-black text-[#333333] mb-4">Thank You!</h3>
+        <p className="text-lg text-[#8b5a3c]" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+          We've received your message and will get back to you soon.
+        </p>
+      </motion.div>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-2xl mx-auto">
+      {/* Progress Indicator */}
+      <div className="flex justify-center mb-12">
+        <div className="flex items-center gap-6 relative">
+          {[1, 2, 3].map((dot) => (
+            <div
+              key={dot}
+              className={`w-3 h-3 rounded-full relative z-10 transition-colors ${
+                dot <= step ? "bg-[#c1765b]" : "bg-gray-300"
+              }`}
+            />
+          ))}
+
+          {/* Progress overlay */}
+          <motion.div
+            initial={{ width: '24px', x: 0 }}
+            animate={{
+              width: step === 1 ? '24px' : step === 2 ? '72px' : '120px',
+              x: 0
+            }}
+            className="absolute left-0 top-1/2 -translate-y-1/2 h-3 bg-[#c1765b] rounded-full opacity-30"
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+              mass: 0.8,
+              bounce: 0.25,
+              duration: 0.6
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Form Content */}
+      <motion.div
+        key={step}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -20 }}
+        transition={{ duration: 0.3 }}
+        className="mb-8"
+      >
+        {step === 1 && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-8">
+              <User className="text-[#c1765b]" size={32} />
+              <h3 className="text-3xl font-black text-[#333333]">Your Details</h3>
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-[#333333] mb-2 uppercase tracking-wider" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full px-6 py-4 bg-white border-2 border-[#c1765b]/20 rounded-xl focus:border-[#c1765b] focus:outline-none transition-colors text-[#333333] text-lg"
+                placeholder="John Doe"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-[#333333] mb-2 uppercase tracking-wider" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full px-6 py-4 bg-white border-2 border-[#c1765b]/20 rounded-xl focus:border-[#c1765b] focus:outline-none transition-colors text-[#333333] text-lg"
+                placeholder="john@example.com"
+              />
+            </div>
+          </div>
+        )}
+
+        {step === 2 && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-8">
+              <MessageCircle className="text-[#c1765b]" size={32} />
+              <h3 className="text-3xl font-black text-[#333333]">Your Message</h3>
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-[#333333] mb-2 uppercase tracking-wider" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Subject
+              </label>
+              <input
+                type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleInputChange}
+                className="w-full px-6 py-4 bg-white border-2 border-[#c1765b]/20 rounded-xl focus:border-[#c1765b] focus:outline-none transition-colors text-[#333333] text-lg"
+                placeholder="How can we help?"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-[#333333] mb-2 uppercase tracking-wider" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                Message
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
+                rows={6}
+                className="w-full px-6 py-4 bg-white border-2 border-[#c1765b]/20 rounded-xl focus:border-[#c1765b] focus:outline-none transition-colors text-[#333333] text-lg resize-none"
+                placeholder="Tell us what's on your mind..."
+              />
+            </div>
+          </div>
+        )}
+
+        {step === 3 && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-8">
+              <CircleCheck className="text-[#c1765b]" size={32} />
+              <h3 className="text-3xl font-black text-[#333333]">Review & Submit</h3>
+            </div>
+
+            <div className="bg-white border-2 border-[#c1765b]/20 rounded-xl p-6 space-y-4">
+              <div>
+                <p className="text-xs font-bold text-[#8b5a3c] mb-1 uppercase tracking-wider">Name</p>
+                <p className="text-lg text-[#333333]">{formData.name}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#8b5a3c] mb-1 uppercase tracking-wider">Email</p>
+                <p className="text-lg text-[#333333]">{formData.email}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#8b5a3c] mb-1 uppercase tracking-wider">Subject</p>
+                <p className="text-lg text-[#333333]">{formData.subject}</p>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-[#8b5a3c] mb-1 uppercase tracking-wider">Message</p>
+                <p className="text-lg text-[#333333]">{formData.message}</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      {/* Buttons */}
+      <motion.div
+        className="flex items-center gap-3"
+        animate={{
+          justifyContent: isExpanded ? 'stretch' : 'space-between'
+        }}
+      >
+        {!isExpanded && (
+          <motion.button
+            initial={{ opacity: 0, width: 0, scale: 0.8 }}
+            animate={{ opacity: 1, width: "auto", scale: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 15,
+              mass: 0.8,
+              bounce: 0.25,
+              duration: 0.6,
+              opacity: { duration: 0.2 }
+            }}
+            onClick={handleBack}
+            className="px-8 py-4 text-[#c1765b] flex items-center justify-center bg-white border-2 border-[#c1765b]/20 font-bold rounded-full hover:border-[#c1765b] transition-colors text-sm uppercase tracking-wider"
+            style={{ fontFamily: 'Montserrat, sans-serif' }}
+          >
+            Back
+          </motion.button>
+        )}
+
+        <motion.button
+          onClick={handleContinue}
+          disabled={!isStepValid()}
+          animate={{
+            flex: isExpanded ? 1 : 'inherit',
+          }}
+          className={`px-8 py-4 rounded-full text-white font-bold transition-all text-sm uppercase tracking-wider ${
+            !isStepValid()
+              ? 'bg-gray-300 cursor-not-allowed'
+              : 'bg-[#c1765b] hover:bg-[#a0624a]'
+          } ${isExpanded ? 'w-full' : 'w-auto'}`}
+          style={{ fontFamily: 'Montserrat, sans-serif' }}
+        >
+          <div className="flex items-center justify-center gap-2">
+            {step === 3 && (
+              <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 500,
+                  damping: 15,
+                  mass: 0.5,
+                  bounce: 0.4
+                }}
+              >
+                <Send size={16} />
+              </motion.div>
+            )}
+            {step === 3 ? 'Submit' : 'Continue'}
+          </div>
+        </motion.button>
+      </motion.div>
+    </div>
   );
 };
 
@@ -261,6 +539,26 @@ const ContactPage = () => {
         </div>
       </section>
 
+      {/* Contact Form Section */}
+      <section className="relative min-h-screen bg-[#fff5eb] py-20 px-8">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-5xl md:text-7xl font-black text-[#333333] mb-6">
+              Get in <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Touch</span>
+            </h2>
+            <p className="text-lg text-[#8b5a3c] max-w-2xl mx-auto" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+              Have a question or just want to say hello? We'd love to hear from you!
+            </p>
+          </motion.div>
+
+          <ContactForm />
+        </div>
+      </section>
 
       {/* Global CSS for Stroke Text Effect */}
       <style jsx global>{`

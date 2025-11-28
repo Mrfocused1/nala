@@ -168,7 +168,8 @@ const PhysicsFooter = () => {
                  <div className="text-center">
                     <ArrowDown size={64} className="animate-bounce mx-auto mb-4 opacity-30 text-[#c1765b]" />
                     <p className="font-bold text-2xl uppercase opacity-30 tracking-widest text-[#c1765b]" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                      Hover to Explore
+                      <span className="md:hidden">Tap to Explore</span>
+                      <span className="hidden md:inline">Hover to Explore</span>
                     </p>
                  </div>
             </div>

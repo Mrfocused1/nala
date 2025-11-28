@@ -427,19 +427,8 @@ const ShopSection = () => {
         <div className="absolute top-10 left-0 w-full flex justify-between items-end z-10" style={{ paddingLeft: '80px', paddingRight: '40px' }}>
           <div>
             <h3 className="text-sm font-mono text-[#333333] tracking-widest mb-2">33% OFF</h3>
-            <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333] flex items-center gap-0">
-              <span className="inline-block transition-all duration-300 hover:translate-x-3 hover:-translate-y-2 hover:scale-110 active:translate-x-3 active:-translate-y-2 active:scale-110 cursor-pointer">
-                Browse
-              </span>
-              <img
-                src="/stickers/6.png"
-                alt="decorative sticker"
-                className="w-12 h-12 md:w-16 md:h-16 inline-block drop-shadow-lg transition-all duration-300 hover:scale-125 hover:rotate-12 active:scale-125 active:rotate-12 cursor-pointer -mx-1"
-                style={{ transform: 'rotate(-8deg)' }}
-              />
-              <span className="italic font-light tracking-wide inline-block transition-all duration-300 hover:translate-x-3 hover:-translate-y-2 hover:scale-110 active:translate-x-3 active:-translate-y-2 active:scale-110 cursor-pointer" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Collection
-              </span>
+            <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333]">
+              Browse <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Collection</span>
             </h2>
           </div>
           <div className="hidden md:flex gap-2 text-sm font-mono text-[#333333]/70">
@@ -598,6 +587,7 @@ const JourneySection = () => {
 const SensitiveSkinStage = () => {
   const ref = useRef(null);
   const [padding, setPadding] = useState(160);
+  const [isSwapped, setIsSwapped] = useState(false);
 
   useEffect(() => {
     const updatePadding = () => {
@@ -623,6 +613,12 @@ const SensitiveSkinStage = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  const handleTap = () => {
+    if (window.innerWidth < 768) {
+      setIsSwapped(!isSwapped);
+    }
+  };
 
   return (
     <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
@@ -641,27 +637,15 @@ const SensitiveSkinStage = () => {
         </div>
 
         {/* Left Side: Two Overlapping Image Containers */}
-        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start md:cursor-default cursor-pointer" style={{ minWidth: '280px' }} onClick={handleTap}>
           <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative ${isSwapped ? 'z-0' : 'z-10'}`}
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
             <img
               src="https://images.pexels.com/photos/3737154/pexels-photo-3737154.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Sensitive skin care"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
-            whileHover={{ scale: 1.05, zIndex: 20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <img
-              src="https://images.pexels.com/photos/4473602/pexels-photo-4473602.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Baby skin care"
               className="w-full h-full object-cover"
             />
             {/* Sticker */}
@@ -674,6 +658,18 @@ const SensitiveSkinStage = () => {
               transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
             />
           </motion.div>
+
+          <motion.div
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 ${isSwapped ? 'z-10' : 'z-0'}`}
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/4473602/pexels-photo-4473602.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Baby skin care"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
         </div>
       </motion.div>
     </div>
@@ -684,6 +680,7 @@ const SensitiveSkinStage = () => {
 const AwardWinningStage = () => {
   const ref = useRef(null);
   const [padding, setPadding] = useState(160);
+  const [isSwapped, setIsSwapped] = useState(false);
 
   useEffect(() => {
     const updatePadding = () => {
@@ -710,6 +707,12 @@ const AwardWinningStage = () => {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
+  const handleTap = () => {
+    if (window.innerWidth < 768) {
+      setIsSwapped(!isSwapped);
+    }
+  };
+
   return (
     <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
       <motion.div
@@ -727,9 +730,9 @@ const AwardWinningStage = () => {
         </div>
 
         {/* Right Side: Two Overlapping Image Containers */}
-        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start md:cursor-default cursor-pointer" style={{ minWidth: '280px' }} onClick={handleTap}>
           <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative ${isSwapped ? 'z-0' : 'z-10'}`}
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
@@ -750,7 +753,7 @@ const AwardWinningStage = () => {
           </motion.div>
 
           <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 ${isSwapped ? 'z-10' : 'z-0'}`}
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
@@ -770,6 +773,7 @@ const AwardWinningStage = () => {
 const MadeInBritainStage = () => {
   const ref = useRef(null);
   const [padding, setPadding] = useState(160);
+  const [isSwapped, setIsSwapped] = useState(false);
 
   useEffect(() => {
     const updatePadding = () => {
@@ -796,6 +800,12 @@ const MadeInBritainStage = () => {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
+  const handleTap = () => {
+    if (window.innerWidth < 768) {
+      setIsSwapped(!isSwapped);
+    }
+  };
+
   return (
     <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
       <motion.div
@@ -813,27 +823,15 @@ const MadeInBritainStage = () => {
         </div>
 
         {/* Left Side: Two Overlapping Image Containers */}
-        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start md:cursor-default cursor-pointer" style={{ minWidth: '280px' }} onClick={handleTap}>
           <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative ${isSwapped ? 'z-0' : 'z-10'}`}
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
             <img
               src="https://images.pexels.com/photos/3992933/pexels-photo-3992933.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Made in Britain"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-
-          <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
-            whileHover={{ scale: 1.05, zIndex: 20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <img
-              src="https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Quality production"
               className="w-full h-full object-cover"
             />
             {/* Sticker */}
@@ -846,6 +844,18 @@ const MadeInBritainStage = () => {
               transition={{ type: "spring", bounce: 0.5, delay: 0.3 }}
             />
           </motion.div>
+
+          <motion.div
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 ${isSwapped ? 'z-10' : 'z-0'}`}
+            whileHover={{ scale: 1.05, zIndex: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img
+              src="https://images.pexels.com/photos/8088495/pexels-photo-8088495.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="Quality production"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
         </div>
       </motion.div>
     </div>
@@ -856,6 +866,7 @@ const MadeInBritainStage = () => {
 const NaturalIngredientsStage = () => {
   const ref = useRef(null);
   const [padding, setPadding] = useState(160);
+  const [isSwapped, setIsSwapped] = useState(false);
 
   useEffect(() => {
     const updatePadding = () => {
@@ -885,6 +896,12 @@ const NaturalIngredientsStage = () => {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
+  const handleTap = () => {
+    if (window.innerWidth < 768) {
+      setIsSwapped(!isSwapped);
+    }
+  };
+
   return (
     <div ref={ref} className="relative z-10 w-full min-h-screen flex items-center py-24 px-12 md:px-32 lg:px-48 xl:px-56 2xl:px-72">
       <motion.div
@@ -902,10 +919,10 @@ const NaturalIngredientsStage = () => {
         </div>
 
         {/* Right Side: Two Overlapping Image Containers */}
-        <div className="relative w-full md:w-auto flex justify-center md:justify-start" style={{ minWidth: '280px' }}>
+        <div className="relative w-full md:w-auto flex justify-center md:justify-start md:cursor-default cursor-pointer" style={{ minWidth: '280px' }} onClick={handleTap}>
           {/* First Image Container */}
           <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative z-10"
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden relative ${isSwapped ? 'z-0' : 'z-10'}`}
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >
@@ -927,7 +944,7 @@ const NaturalIngredientsStage = () => {
 
           {/* Second Image Container - Overlapping */}
           <motion.div
-            className="w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 z-0"
+            className={`w-48 md:w-56 h-64 md:h-80 rounded-xl border-2 border-white overflow-hidden absolute left-24 md:left-28 top-8 md:top-12 ${isSwapped ? 'z-10' : 'z-0'}`}
             whileHover={{ scale: 1.05, zIndex: 20 }}
             transition={{ duration: 0.3 }}
           >

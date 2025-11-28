@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTiktok, FaInstagram, FaFacebook, FaYoutube, FaTwitter } from 'react-icons/fa';
 
@@ -18,6 +18,7 @@ const loadScript = (src) => {
 };
 
 const BurgerMenu = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   const containerRef = useRef(null);
   const itemsRef = useRef({});
   const engineRef = useRef(null);
@@ -41,12 +42,31 @@ const BurgerMenu = ({ isOpen, onClose }) => {
 
   const allItems = [...menuItems, ...socialItems];
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e, path) => {
+    e?.stopPropagation();
     if (onClose) {
       onClose();
     }
     // Scroll to top when navigating
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // If path is provided (from touch event), navigate programmatically
+    if (path) {
+      navigate(path);
+    }
+  };
+
+  const handleTouchEnd = (e, path) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Close menu and navigate
+    if (onClose) {
+      onClose();
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Navigate programmatically for touch events
+    if (path) {
+      navigate(path);
+    }
   };
 
   // Load Matter.js when component mounts
@@ -267,10 +287,10 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                   to={item.path}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleLinkClick();
+                    handleLinkClick(e);
                   }}
-                  onTouchStart={(e) => {
-                    e.stopPropagation();
+                  onTouchEnd={(e) => {
+                    handleTouchEnd(e, item.path);
                   }}
                   className="w-full h-full flex items-center justify-center text-2xl md:text-3xl font-black pointer-events-auto"
                 >
@@ -318,8 +338,15 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full h-full flex items-center justify-center pointer-events-auto"
-                    onClick={(e) => e.stopPropagation()}
-                    onTouchEnd={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    onTouchEnd={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      // Open link on touch
+                      window.open(item.url, '_blank', 'noopener,noreferrer');
+                    }}
                   >
                     {renderIcon()}
                   </a>

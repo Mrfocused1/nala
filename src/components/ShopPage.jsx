@@ -7,66 +7,162 @@ import BurgerMenu from './BurgerMenu';
 const products = [
   {
     id: 1,
-    name: 'Original Adventure Bundle',
-    price: '£45.00',
+    name: 'Original Adventure Bundle (6x 200ml)',
+    price: '£32.99',
     image: '/products/product1.png',
     category: 'bundles',
     tag: 'Bestseller'
   },
   {
     id: 2,
-    name: 'Luxury Gift Set',
-    price: '£55.00',
+    name: 'Luxury Gift Set (6x 200ml)',
+    price: '£54.99',
     image: '/products/product2.png',
     category: 'bundles',
     tag: 'Gift'
   },
   {
     id: 3,
-    name: 'Original Skin Trio',
-    price: '£32.00',
+    name: 'Vanilla Cloud Body Butter 200ml',
+    price: '£6.75',
     image: '/products/product3.png',
     category: 'skincare',
-    tag: 'New'
+    tag: 'Bestseller'
   },
   {
     id: 4,
-    name: 'Baby Wash Set',
-    price: '£28.00',
+    name: 'Original Body Butter 200ml',
+    price: '£6.50',
     image: '/products/product4.png',
-    category: 'wash',
+    category: 'skincare',
     tag: null
   },
   {
     id: 5,
-    name: 'Gentle Body Wash',
-    price: '£12.00',
-    image: '/products/product1.png',
+    name: 'Vanilla Cloud Body Wash & Shampoo 200ml',
+    price: '£5.75',
+    image: '/products/product5.png',
     category: 'wash',
-    tag: 'Bestseller'
+    tag: null
   },
   {
     id: 6,
-    name: 'Nourishing Lotion',
-    price: '£14.00',
-    image: '/products/product2.png',
-    category: 'skincare',
+    name: 'Original Body Wash & Shampoo 200ml',
+    price: '£5.55',
+    image: '/products/product6.png',
+    category: 'wash',
     tag: null
   },
   {
     id: 7,
-    name: 'Soothing Cream',
-    price: '£16.00',
-    image: '/products/product3.png',
+    name: 'Vanilla Cloud Body Lotion 200ml',
+    price: '£5.75',
+    image: '/products/product7.png',
+    category: 'skincare',
+    tag: null
+  },
+  {
+    id: 8,
+    name: 'Vanilla Cloud Nighttime Oil 200ml',
+    price: '£5.75',
+    image: '/products/product8.png',
     category: 'skincare',
     tag: 'New'
   },
   {
-    id: 8,
-    name: 'Baby Shampoo',
-    price: '£11.00',
-    image: '/products/product4.png',
+    id: 9,
+    name: 'Original Hair Conditioner 200ml',
+    price: '£5.55',
+    image: '/products/product9.png',
     category: 'hair',
+    tag: null
+  },
+  {
+    id: 10,
+    name: 'Vanilla Cloud Bubble Bath 200ml',
+    price: '£5.75',
+    image: '/products/product10.png',
+    category: 'wash',
+    tag: null
+  },
+  {
+    id: 11,
+    name: 'Body Butter Duo 2 x 200ml',
+    price: '£12.95',
+    image: '/products/product11.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 12,
+    name: 'Vanilla Cloud Soft Skin Duo',
+    price: '£13.99',
+    image: '/products/product12.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 13,
+    name: 'Vanilla Cloud Complete Bundle (5x 200ml)',
+    price: '£27.00',
+    image: '/products/product13.png',
+    category: 'bundles',
+    tag: 'Bestseller'
+  },
+  {
+    id: 14,
+    name: 'Vanilla Cloud Mixed Bundle (3x 200ml)',
+    price: '£16.00',
+    image: '/products/product14.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 15,
+    name: 'Ice Cream Sundae Bundle',
+    price: '£10.95',
+    image: '/products/product15.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 16,
+    name: 'Strawberry Springs Trio',
+    price: '£17.99',
+    image: '/products/product16.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 17,
+    name: 'Sleep Trio',
+    price: '£17.99',
+    image: '/products/product17.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 18,
+    name: 'Original Skin Trio (3x 200ml)',
+    price: '£18.99',
+    image: '/products/product18.png',
+    category: 'bundles',
+    tag: null
+  },
+  {
+    id: 19,
+    name: 'Fragrance Free Body Lotion 200ml',
+    price: '£5.75',
+    image: '/products/product19.png',
+    category: 'skincare',
+    tag: null
+  },
+  {
+    id: 20,
+    name: 'Fragrance Free Body Wash 200ml',
+    price: '£5.55',
+    image: '/products/product20.png',
+    category: 'wash',
     tag: null
   },
 ];
@@ -182,7 +278,7 @@ const ShopPage = () => {
       {/* Products Grid */}
       <section className="px-8 md:px-20 pb-32">
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8"
           layout
         >
           {filteredProducts.map((product, index) => (
@@ -215,7 +311,7 @@ const ShopPage = () => {
 
                   {/* Product Info - Outside Card */}
                   <div className="mt-4">
-                    <h3 className="text-lg font-sans font-bold text-[#333333]">
+                    <h3 className="text-sm md:text-base font-sans font-bold text-[#333333]">
                       {product.name}
                     </h3>
                   </div>

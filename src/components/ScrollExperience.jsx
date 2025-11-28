@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Star, ThumbsUp, Heart, ArrowDown, Flag, MapPin, Compass, Target, Mountain, Zap, Users, Rocket, ShoppingBag, ArrowRight, Sparkles, Plus } from 'lucide-react';
 import { motion, useScroll, useSpring, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
 import BrandsSection from './BrandsSection';
@@ -51,7 +52,7 @@ const ExperienceContent = () => {
   const loopPath = useRef(null);
   const snakeTextRef = useRef(null);
 
-  const phrase = "GENTLE ON SKIN KIND TO NATURE SAFE FOR YOUR FAMILY ";
+  const phrase = "DISCOVER OUR 33% DISCOUNT ACROSS THE WEBSITE FOR ALL PRODUCTS ";
   const chars = phrase.split('').map((char, index) => {
     let icon = null;
     if (index === 14) icon = <img src="/stickers/10.png" alt="leaf sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(8deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
@@ -426,7 +427,7 @@ const ShopSection = () => {
         {/* Section Header */}
         <div className="absolute top-10 left-0 w-full flex justify-between items-end z-10" style={{ paddingLeft: '80px', paddingRight: '40px' }}>
           <div>
-            <h3 className="text-sm font-mono text-[#333333] tracking-widest mb-2">33% OFF</h3>
+            <h3 className="text-sm font-mono text-white tracking-widest mb-2 bg-[#c1765b] border-2 border-[#c1765b] px-3 py-1 inline-block">33% OFF</h3>
             <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333]">
               Browse <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Collection</span>
             </h2>
@@ -440,8 +441,9 @@ const ShopSection = () => {
         {/* Horizontal Track */}
         <div ref={shopTrack} className="flex gap-[5vw] w-fit items-start h-[60vh]">
             {products.map((product, i) => (
-            <div
+            <Link
               key={i}
+              to={`/shop/${product.id}`}
               className="group relative w-[50vw] md:w-[18vw] cursor-pointer"
               style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
             >
@@ -467,7 +469,7 @@ const ShopSection = () => {
                   {product.name}
                 </h3>
               </div>
-            </div>
+            </Link>
             ))}
 
           {/* "View All" Card */}

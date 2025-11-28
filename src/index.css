@@ -18,9 +18,12 @@
 
 /* Reset and base styles */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+}
+
+/* Scoped reset - preserve form element padding */
+body, h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd {
+  margin: 0;
 }
 
 html, body, #root {

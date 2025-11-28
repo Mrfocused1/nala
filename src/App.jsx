@@ -14,6 +14,9 @@ function App() {
   const [showOverlay, setShowOverlay] = useState(true) // Show on initial load
 
   useEffect(() => {
+    // Scroll to top on route change
+    window.scrollTo(0, 0)
+
     // Start new transition on route change
     setShowOverlay(true)
     setOverlayKey(prev => prev + 1)

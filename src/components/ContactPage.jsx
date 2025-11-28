@@ -236,11 +236,11 @@ const ContactPage = () => {
           >
             {/* Added Hand-Drawn Arrow SVG */}
             <svg
-              className="w-24 h-24 mb-2 text-[#c1765b] stroke-current animate-bounce"
+              className="w-24 h-24 mb-2 text-white stroke-current animate-bounce"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ filter: "drop-shadow(0px 0px 5px rgba(193,118,91,0.5))" }}
+              style={{ filter: "drop-shadow(0px 0px 5px rgba(255,255,255,0.5))" }}
             >
               <path
                 d="M20 50 C 20 20, 80 20, 80 60"
@@ -255,9 +255,9 @@ const ContactPage = () => {
               />
             </svg>
 
-            <p className="text-center font-bold text-base md:text-lg leading-tight text-[#333333]" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <p className="text-center font-bold text-base md:text-lg leading-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Get in touch <br/>
-              <span className="text-[#c1765b] underline decoration-wavy">we'd love to hear from you!</span>
+              <span className="text-white underline decoration-wavy">we'd love to hear from you!</span>
             </p>
           </motion.div>
         </div>

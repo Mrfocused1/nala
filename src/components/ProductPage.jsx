@@ -8,11 +8,11 @@ import BurgerMenu from './BurgerMenu';
 const PRODUCT = {
   title: "Gentle Baby Wash",
   price: 24.00,
-  currency: "USD",
-  installments: "Pay in full or in 4 interest-free installments of $6.00.",
+  currency: "GBP",
+  installments: "Pay in full or in 4 interest-free installments of £6.00.",
   sizes: ["100ml", "250ml", "500ml"],
   description: "Our signature baby wash is lovingly crafted with natural ingredients to cleanse and nourish your baby's delicate skin. Gentle enough for newborns, perfect for toddlers.",
-  shippingNote: "Note: Your order will ship within 1-2 weeks of purchase. Free shipping on orders over $50.",
+  shippingNote: "Note: Your order will ship within 1-2 weeks of purchase. Free shipping on orders over £50.",
   details: "Our Gentle Baby Wash is crafted with care using only the finest natural ingredients. Dermatologically tested and approved for sensitive skin. Free from harsh chemicals, parabens, and sulfates.",
   materials: [
     "Made with 100% natural ingredients.",
@@ -25,9 +25,9 @@ const PRODUCT = {
   sizeChart: {
     columns: ["Size", "Volume", "Uses (approx)", "Price per ml"],
     rows: [
-      ["Travel", "100ml", "20 baths", "$0.24"],
-      ["Standard", "250ml", "50 baths", "$0.18"],
-      ["Family", "500ml", "100 baths", "$0.15"]
+      ["Travel", "100ml", "20 baths", "£0.24"],
+      ["Standard", "250ml", "50 baths", "£0.18"],
+      ["Family", "500ml", "100 baths", "£0.15"]
     ]
   }
 };

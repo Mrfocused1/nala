@@ -1,113 +1,96 @@
 import { chromium } from 'playwright';
 
 (async () => {
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch();
   const page = await browser.newPage();
 
-  console.log('🔍 Verifying fixes...\n');
-
-  await page.goto('http://localhost:5173');
+  await page.goto('http://localhost:5173/contact');
   await page.waitForTimeout(2000);
 
-  // Scroll to Browse Collection
-  await page.evaluate(() => {
-    const heading = Array.from(document.querySelectorAll('h2')).find(h =>
-      h.textContent.includes('Browse') && h.textContent.includes('Collection')
-    );
-    if (heading) heading.scrollIntoView({ behavior: 'smooth' });
+  console.log('\n========================================');
+  console.log('CLOUDWATCH FORM - VERIFICATION AUDIT');
+  console.log('========================================\n');
+
+  // 1. FORM CONTAINER MEASUREMENTS
+  const containerStyles = await page.locator('.bg-white\\/30.backdrop-blur-md').first().evaluate((el) => {
+    const computed = window.getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    return {
+      width: rect.width,
+      height: rect.height,
+      padding: computed.padding,
+      gap: computed.gap,
+      borderRadius: computed.borderRadius,
+    };
   });
 
-  await page.waitForTimeout(2000);
+  console.log('=== FORM CONTAINER (AFTER FIXES) ===');
+  console.log(JSON.stringify(containerStyles, null, 2));
 
-  console.log('📦 CHECK 1: Product Image Uniqueness\n');
-
-  const products = await page.evaluate(() => {
-    const cards = Array.from(document.querySelectorAll('[class*="group"][class*="relative"]')).filter(card => {
-      const img = card.querySelector('img');
-      return img && img.alt && !img.alt.includes('Logo');
-    });
-
-    return cards.map(card => {
-      const img = card.querySelector('img');
-      return {
-        alt: img?.alt,
-        width: img?.naturalWidth,
-        height: img?.naturalHeight,
-        src: img?.src.substring(img?.src.lastIndexOf('/'))
-      };
-    });
+  // 2. LABEL MEASUREMENTS
+  const labelStyles = await page.locator('label').first().evaluate((el) => {
+    const computed = window.getComputedStyle(el);
+    return {
+      fontSize: computed.fontSize,
+      fontWeight: computed.fontWeight,
+      color: computed.color,
+      marginBottom: computed.marginBottom,
+    };
   });
 
-  products.forEach((p, i) => {
-    console.log(`Product ${i + 1}: ${p.width}x${p.height}px - ${p.src}`);
+  console.log('\n=== LABEL STYLES (AFTER FIXES) ===');
+  console.log(JSON.stringify(labelStyles, null, 2));
+
+  // 3. INPUT FIELD MEASUREMENTS
+  const inputStyles = await page.locator('input').first().evaluate((el) => {
+    const computed = window.getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    return {
+      width: rect.width,
+      height: rect.height,
+      padding: computed.padding,
+      borderWidth: computed.borderWidth,
+      borderRadius: computed.borderRadius,
+      fontSize: computed.fontSize,
+    };
   });
 
-  const uniqueSizes = new Set(products.map(p => `${p.width}x${p.height}`));
-  if (uniqueSizes.size >= 3) {
-    console.log(`\n✅ PASS: ${uniqueSizes.size} different image sizes detected`);
-  } else {
-    console.log(`\n⚠️  WARNING: Only ${uniqueSizes.size} unique sizes`);
-  }
+  console.log('\n=== INPUT FIELDS (AFTER FIXES) ===');
+  console.log(JSON.stringify(inputStyles, null, 2));
 
-  console.log('\n📏 CHECK 2: Scroll Distance\n');
-
-  await page.evaluate(() => {
-    const heading = Array.from(document.querySelectorAll('h2')).find(h =>
-      h.textContent.includes('Browse') && h.textContent.includes('Collection')
-    );
-    if (heading) heading.scrollIntoView({ behavior: 'auto', block: 'start' });
+  // 4. BUTTON MEASUREMENTS
+  const buttonStyles = await page.locator('button').first().evaluate((el) => {
+    const computed = window.getComputedStyle(el);
+    const rect = el.getBoundingClientRect();
+    return {
+      width: rect.width,
+      height: rect.height,
+      padding: computed.padding,
+      fontSize: computed.fontSize,
+      fontWeight: computed.fontWeight,
+      borderRadius: computed.borderRadius,
+      backgroundColor: computed.backgroundColor,
+      color: computed.color,
+    };
   });
 
-  await page.waitForTimeout(1000);
+  console.log('\n=== SUBMIT BUTTON (AFTER FIXES) ===');
+  console.log(JSON.stringify(buttonStyles, null, 2));
 
-  let lastCardVisible = true;
-  let scrollsAfterLastCard = 0;
-  let totalScrolls = 0;
+  // 5. TAKE UPDATED SCREENSHOTS
+  const formContainer = await page.locator('.bg-white\\/30').first();
+  await formContainer.screenshot({ path: 'audit-fixed-state.png' });
+  console.log('\n✅ Updated screenshot saved as audit-fixed-state.png');
 
-  for (let i = 0; i < 15; i++) {
-    await page.evaluate(() => window.scrollBy(0, 100));
-    await page.waitForTimeout(200);
-    totalScrolls++;
+  await page.locator('input').first().screenshot({ path: 'audit-fixed-input.png' });
+  console.log('✅ Updated input screenshot saved as audit-fixed-input.png');
 
-    const scrollInfo = await page.evaluate(() => {
-      const track = document.querySelector('[class*="flex"][class*="gap"]');
-      if (!track) return null;
+  await page.locator('button').first().screenshot({ path: 'audit-fixed-button.png' });
+  console.log('✅ Updated button screenshot saved as audit-fixed-button.png');
 
-      const cards = Array.from(track.children).filter(c => c.querySelector('img'));
-      const lastCard = cards[cards.length - 1];
-      const lastCardRect = lastCard?.getBoundingClientRect();
+  console.log('\n========================================');
+  console.log('VERIFICATION COMPLETE');
+  console.log('========================================\n');
 
-      return {
-        lastCardRight: Math.round(lastCardRect?.right || 0),
-        viewportWidth: window.innerWidth
-      };
-    });
-
-    if (scrollInfo) {
-      const visible = scrollInfo.lastCardRight > 50; // 50px buffer
-
-      if (visible) {
-        console.log(`Scroll ${i}: Last card at ${scrollInfo.lastCardRight}px ✓`);
-      } else if (lastCardVisible) {
-        console.log(`Scroll ${i}: Last card exited viewport at ${scrollInfo.lastCardRight}px`);
-        lastCardVisible = false;
-      } else {
-        scrollsAfterLastCard++;
-      }
-    }
-  }
-
-  console.log(`\nTotal scrolls: ${totalScrolls}`);
-  console.log(`Scrolls after last card left: ${scrollsAfterLastCard}`);
-
-  if (scrollsAfterLastCard <= 2) {
-    console.log('\n✅ PASS: Scroll distance is appropriate (≤2 extra scrolls)');
-  } else {
-    console.log(`\n⚠️  WARNING: ${scrollsAfterLastCard} extra scrolls after last card`);
-  }
-
-  await page.waitForTimeout(2000);
   await browser.close();
-
-  console.log('\n✅ Verification complete!');
 })();

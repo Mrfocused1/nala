@@ -269,9 +269,8 @@ const BurgerMenu = ({ isOpen, onClose }) => {
                     e.stopPropagation();
                     handleLinkClick();
                   }}
-                  onTouchEnd={(e) => {
+                  onTouchStart={(e) => {
                     e.stopPropagation();
-                    handleLinkClick();
                   }}
                   className="w-full h-full flex items-center justify-center text-2xl md:text-3xl font-black pointer-events-auto"
                 >

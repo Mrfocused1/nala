@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ChevronDown, ChevronUp, ArrowRight, ArrowLeft } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
+import PhysicsFooter from './PhysicsFooter';
 
 // --- Data & Content ---
 
@@ -38,14 +39,15 @@ const RELATED_PRODUCTS = [
   { id: 3, name: "Baby Care Bundle", price: 59, img: "/products/product1.png" },
 ];
 
-const IMAGES = [
-  "/products/product1.png",
-  "/products/product2.png",
-  "/products/product3.png",
-  "/products/product4.png",
-  "/products/product1.png",
-  "/products/product2.png"
-];
+// Generate unique images for each product based on ID
+const getProductImages = (productId) => {
+  const id = parseInt(productId) || 1;
+  const baseImage = `/products/product${id}.png`;
+
+  // Create array of 6 images for the product gallery
+  // Using the same product image for now, but can be varied
+  return Array(6).fill(baseImage);
+};
 
 // --- Components ---
 
@@ -55,13 +57,13 @@ const AccordionItem = ({ title, children, isOpen, onClick }) => (
       onClick={onClick}
       className="flex justify-between items-center w-full py-4 text-left group hover:text-[#c1765b] transition-colors"
     >
-      <span className="font-medium text-lg">{title}</span>
+      <span className="font-black text-lg uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>{title}</span>
       {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
     </button>
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}
     >
-      <div className="text-gray-600 leading-relaxed">
+      <div className="text-gray-600 leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>
         {children}
       </div>
     </div>
@@ -70,11 +72,11 @@ const AccordionItem = ({ title, children, isOpen, onClick }) => (
 
 const SizeTable = ({ data }) => (
   <div className="overflow-x-auto">
-    <table className="w-full text-sm text-left">
+    <table className="w-full text-sm text-left" style={{ fontFamily: 'Montserrat, sans-serif' }}>
       <thead>
         <tr className="border-b border-gray-200">
           {data.columns.map((col, i) => (
-            <th key={i} className={`py-2 px-2 font-semibold ${i === 0 ? 'pl-0' : 'text-center'}`}>{col}</th>
+            <th key={i} className={`py-2 px-2 font-bold ${i === 0 ? 'pl-0' : 'text-center'}`}>{col}</th>
           ))}
         </tr>
       </thead>
@@ -82,7 +84,7 @@ const SizeTable = ({ data }) => (
         {data.rows.map((row, i) => (
           <tr key={i} className="border-b border-gray-100">
             {row.map((cell, j) => (
-              <td key={j} className={`py-2 px-2 ${j === 0 ? 'pl-0 font-medium' : 'text-center text-gray-600'}`}>
+              <td key={j} className={`py-2 px-2 ${j === 0 ? 'pl-0 font-semibold' : 'text-center text-gray-600'}`}>
                 {cell}
               </td>
             ))}
@@ -94,10 +96,13 @@ const SizeTable = ({ data }) => (
 );
 
 export default function ProductPage() {
+  const { id } = useParams();
   const [selectedSize, setSelectedSize] = useState('250ml');
   const [openAccordion, setOpenAccordion] = useState('overview');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+
+  const IMAGES = getProductImages(id);
 
   const toggleAccordion = (key) => {
     setOpenAccordion(openAccordion === key ? null : key);
@@ -111,13 +116,16 @@ export default function ProductPage() {
         {/* Left: Back Button */}
         <div className="absolute left-[20px] md:left-[50px] top-[24px] pointer-events-auto">
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => {
+              navigate('/shop');
+              setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+            }}
             className="group flex items-center gap-2 transition-transform hover:-translate-x-1"
           >
             <ArrowLeft size={20} className="text-[#c1765b]" />
             <span
-              className="text-lg md:text-xl font-medium tracking-wide transition-colors text-[#c1765b] hover:text-[#333333]"
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
+              className="text-lg md:text-xl font-black tracking-wide transition-colors text-[#c1765b] hover:text-[#333333] uppercase"
+              style={{ fontFamily: 'Inter, sans-serif' }}
             >
               Back
             </span>
@@ -195,24 +203,24 @@ export default function ProductPage() {
           </div>
 
           {/* Right: Product Details (Sticky) */}
-          <div className="w-full md:w-2/5 lg:w-1/3 px-4 md:px-12 py-8 md:py-12 md:sticky md:top-0 md:h-screen md:overflow-y-auto hide-scrollbar">
+          <div className="w-full md:w-2/5 lg:w-1/3 px-4 md:px-12 py-8 md:pt-32 md:pb-12 md:sticky md:top-0 md:h-screen md:overflow-y-auto hide-scrollbar">
 
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight leading-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h1 className="text-3xl md:text-5xl font-black mb-4 tracking-tight leading-tight uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>
               {PRODUCT.title}
             </h1>
 
-            <div className="text-xl md:text-2xl mb-2 font-medium text-[#c1765b]">
-              ${PRODUCT.price.toFixed(2)} {PRODUCT.currency}
+            <div className="text-xl md:text-2xl mb-2 font-black text-[#c1765b]" style={{ fontFamily: 'Inter, sans-serif' }}>
+              £{PRODUCT.price.toFixed(2)}
             </div>
 
-            <p className="text-sm text-gray-500 mb-8">
+            <p className="text-sm text-gray-500 mb-8" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               {PRODUCT.installments}
             </p>
 
             {/* Size Selector */}
             <div className="mb-8">
               <div className="flex justify-between mb-3">
-                <span className="text-sm font-semibold uppercase tracking-wide">Size: {selectedSize}</span>
+                <span className="text-sm font-black uppercase tracking-wide" style={{ fontFamily: 'Inter, sans-serif' }}>Size: {selectedSize}</span>
               </div>
               <div className="flex flex-wrap gap-3">
                 {PRODUCT.sizes.map((size) => (
@@ -233,7 +241,7 @@ export default function ProductPage() {
             </div>
 
             {/* CTA Button */}
-            <button className="w-full bg-[#333333] text-white py-4 px-6 rounded-md font-bold text-lg hover:bg-[#c1765b] transition-colors mb-12 flex items-center justify-center gap-2 group">
+            <button className="w-full bg-[#333333] text-white py-4 px-6 rounded-md font-black text-lg uppercase hover:bg-[#c1765b] transition-colors mb-12 flex items-center justify-center gap-2 group" style={{ fontFamily: 'Inter, sans-serif' }}>
               Add to cart
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
@@ -274,7 +282,7 @@ export default function ProductPage() {
                 isOpen={openAccordion === 'fit'}
                 onClick={() => toggleAccordion('fit')}
               >
-                <p className="mb-4 font-medium">Choose the perfect size for your family.</p>
+                <p className="mb-4 font-semibold" style={{ fontFamily: 'Montserrat, sans-serif' }}>Choose the perfect size for your family.</p>
                 <SizeTable data={PRODUCT.sizeChart} />
               </AccordionItem>
             </div>
@@ -285,13 +293,13 @@ export default function ProductPage() {
         {/* You May Also Like Section */}
         <section className="py-16 px-4 md:px-8 border-t-4 border-[#c1765b] mt-8 bg-[#ffeddb]">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>You may also like</h2>
-            <a href="#" className="text-sm underline hover:text-[#c1765b] transition-colors">View all</a>
+            <h2 className="text-2xl font-black uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>You may also like</h2>
+            <Link to="/shop" className="text-sm font-black uppercase hover:text-[#c1765b] transition-colors" style={{ fontFamily: 'Inter, sans-serif' }}>View all</Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {RELATED_PRODUCTS.map((prod) => (
-              <div key={prod.id} className="group cursor-pointer">
+              <Link key={prod.id} to={`/shop/${prod.id}`} className="group cursor-pointer">
                 <div className="bg-white aspect-square mb-4 overflow-hidden relative border-2 border-[#333333]">
                   <img
                     src={prod.img}
@@ -300,14 +308,16 @@ export default function ProductPage() {
                   />
                   <div className="absolute inset-0 bg-[#c1765b]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <h3 className="font-semibold text-lg">{prod.name}</h3>
-                <p className="text-[#c1765b] font-medium">${prod.price}</p>
-              </div>
+                <h3 className="font-black text-[10px] md:text-xs uppercase" style={{ fontFamily: 'Inter, sans-serif' }}>{prod.name}</h3>
+              </Link>
             ))}
           </div>
         </section>
 
       </main>
+
+      {/* Footer */}
+      <PhysicsFooter />
 
       <style jsx global>{`
         .hide-scrollbar::-webkit-scrollbar {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Heart, ShoppingBag } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
+import PhysicsFooter from './PhysicsFooter';
 
 const products = [
   {
@@ -170,6 +171,7 @@ const products = [
 const ShopPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: 'all', name: 'All Products' },
@@ -179,9 +181,9 @@ const ShopPage = () => {
     { id: 'hair', name: 'Hair Care' },
   ];
 
-  const filteredProducts = selectedCategory === 'all'
-    ? products
-    : products.filter(p => p.category === selectedCategory);
+  const filteredProducts = products
+    .filter(p => selectedCategory === 'all' || p.category === selectedCategory)
+    .filter(p => searchQuery === '' || p.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="w-full min-h-screen bg-[#fff5eb] text-[#333333] font-sans overflow-x-hidden">
@@ -246,10 +248,10 @@ const ShopPage = () => {
           transition={{ duration: 0.8 }}
           className="text-center max-w-5xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#333333] tracking-tighter mb-8 leading-none">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#333333] tracking-tighter mb-8 leading-none text-center">
             SHOP <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>COLLECTION</span>
           </h1>
-          <p className="text-base md:text-lg text-[#6c757d] max-w-xl mx-auto leading-relaxed px-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+          <p className="text-base md:text-lg text-[#6c757d] max-w-xl mx-auto leading-relaxed px-4 text-center" style={{ fontFamily: 'Montserrat, sans-serif' }}>
             Naturally derived, paediatrician approved skincare for your little ones.
           </p>
         </motion.div>
@@ -264,14 +266,26 @@ const ShopPage = () => {
               onClick={() => setSelectedCategory(category.id)}
               className={`px-8 py-3 font-bold uppercase text-xs tracking-widest transition-all duration-300 ${
                 selectedCategory === category.id
-                  ? 'bg-[#c1765b] text-white shadow-lg scale-105 border-2 border-[#c1765b]'
-                  : 'bg-white text-[#c1765b] border-2 border-[#c1765b] hover:bg-[#c1765b] hover:text-white'
+                  ? 'bg-[#c1765b] text-white shadow-lg scale-105 border-2 border-[#333333]'
+                  : 'bg-white text-[#c1765b] border-2 border-[#333333] hover:bg-[#c1765b] hover:text-white'
               }`}
-              style={{ fontFamily: 'Montserrat, sans-serif', borderRadius: '4px' }}
+              style={{ fontFamily: 'Inter, sans-serif', borderRadius: '4px' }}
             >
               {category.name}
             </button>
           ))}
+        </div>
+
+        {/* Search Bar */}
+        <div className="flex justify-center mt-8">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full max-w-md px-6 py-3 border-2 border-[#333333] bg-white text-[#333333] placeholder-[#999999] font-bold uppercase text-xs tracking-widest focus:outline-none focus:ring-2 focus:ring-[#c1765b] transition-all"
+            style={{ fontFamily: 'Inter, sans-serif', borderRadius: '4px' }}
+          />
         </div>
       </section>
 
@@ -311,7 +325,7 @@ const ShopPage = () => {
 
                   {/* Product Info - Outside Card */}
                   <div className="mt-4">
-                    <h3 className="text-sm md:text-base font-sans font-bold text-[#333333]">
+                    <h3 className="text-[10px] md:text-xs font-sans font-bold text-[#333333] uppercase">
                       {product.name}
                     </h3>
                   </div>
@@ -321,6 +335,9 @@ const ShopPage = () => {
           ))}
         </motion.div>
       </section>
+
+      {/* Footer */}
+      <PhysicsFooter />
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Star, ThumbsUp, Heart, ArrowDown, Flag, MapPin, Compass, Target, Mountain, Zap, Users, Rocket, ShoppingBag, ArrowRight, Sparkles, Plus } from 'lucide-react';
-import { motion, useScroll, useSpring, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform, useMotionValue, useMotionTemplate, AnimatePresence } from 'framer-motion';
 import BrandsSection from './BrandsSection';
 import PhysicsFooter from './PhysicsFooter';
 
@@ -41,6 +42,73 @@ const ScrollExperience = () => {
   }
 
   return <ExperienceContent />;
+};
+
+// Hover Video Card Component for "Toddler" word
+const NaturallyHoverCard = () => {
+  const [showVideo, setShowVideo] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const spanRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    if (spanRef.current) {
+      const rect = spanRef.current.getBoundingClientRect();
+      setPosition({
+        x: rect.left + rect.width / 2,
+        y: rect.bottom + 16
+      });
+    }
+    setShowVideo(true);
+  };
+
+  return (
+    <>
+      <span
+        ref={spanRef}
+        className="cursor-pointer hover:text-[#c1765b] transition-colors inline-block"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={() => setShowVideo(false)}
+      >
+        Toddler
+      </span>
+      {showVideo && ReactDOM.createPortal(
+        <div
+          style={{
+            position: 'fixed',
+            top: `${position.y}px`,
+            left: `${position.x}px`,
+            transform: 'translateX(-50%)',
+            width: window.innerWidth <= 768 ? '50vw' : '18vw',
+            aspectRatio: '4/5',
+            background: 'white',
+            border: '4px solid #333333',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            overflow: 'hidden',
+            zIndex: 9999,
+            pointerEvents: 'none',
+            animation: 'bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          >
+            <source src="https://videos.pexels.com/video-files/6849063/6849063-hd_1920_1080_24fps.mp4" type="video/mp4" />
+          </video>
+          <style>{`
+            @keyframes bounceIn {
+              0% { opacity: 0; transform: translateX(-50%) scale(0.8); }
+              100% { opacity: 1; transform: translateX(-50%) scale(1); }
+            }
+          `}</style>
+        </div>,
+        document.body
+      )}
+    </>
+  );
 };
 
 const ExperienceContent = () => {
@@ -230,7 +298,7 @@ const ExperienceContent = () => {
         <div className="mt-8 relative flex justify-center">
           <p className="text-[6vw] md:text-[5vw] font-black uppercase tracking-tighter relative z-10 text-[#333333] text-center">
             From Newborn to <span className="relative inline-block">
-              <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Toddler</span>
+              <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}><NaturallyHoverCard /></span>
               <svg
                 className="absolute -top-[20%] -left-[5%] w-[110%] h-[120%] pointer-events-none overflow-visible"
                 viewBox="0 0 200 100"
@@ -427,7 +495,6 @@ const ShopSection = () => {
         {/* Section Header */}
         <div className="absolute top-10 left-0 w-full flex justify-between items-end z-10" style={{ paddingLeft: '80px', paddingRight: '40px' }}>
           <div>
-            <h3 className="text-sm font-mono text-white tracking-widest mb-2 bg-[#c1765b] border-2 border-[#c1765b] px-3 py-1 inline-block">33% OFF</h3>
             <h2 className="text-4xl md:text-6xl font-bold leading-none text-[#333333]">
               Browse <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Collection</span>
             </h2>
@@ -465,7 +532,7 @@ const ShopSection = () => {
 
               {/* Product Info - Outside Card */}
               <div className="mt-3 md:mt-4">
-                <h3 className="text-sm md:text-base font-sans font-bold text-[#333333]">
+                <h3 className="text-[10px] md:text-xs font-sans font-bold text-[#333333] uppercase">
                   {product.name}
                 </h3>
               </div>
@@ -555,7 +622,7 @@ const JourneySection = () => {
             WHY <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>FAMILIES</span> TRUST US<span className="text-[#333333]">.</span>
           </h1>
           <p className="text-base md:text-lg text-[#6c757d] max-w-2xl mx-auto leading-relaxed text-center px-4 md:px-0" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-            Award-winning, naturally derived skincare that puts your family's health first — every single day.
+            Award-winning, naturally derived skincare that puts your <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>family's</span> health first — every single day.
           </p>
         </motion.div>
 
@@ -587,7 +654,7 @@ const JourneySection = () => {
             transition={{ duration: 0.8 }}
             className="w-full md:w-[70%] lg:w-[60%] text-center"
           >
-            <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-6 leading-tight">Your Family's Choice</h2>
+            <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-6 leading-tight">Your Family's <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Choice</span></h2>
             <p className="text-base md:text-lg text-[#6c757d] leading-relaxed px-4 md:px-0" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Thousands of families trust Nala's Baby for their little ones' skincare needs. Join our community and discover gentle, natural products that work — all at a price that makes clean beauty accessible to everyone. Because every baby deserves the very best.
             </p>

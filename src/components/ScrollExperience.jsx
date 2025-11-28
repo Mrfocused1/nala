@@ -334,7 +334,7 @@ const ExperienceContent = () => {
           </p>
         </div>
 
-        <div className="mt-32 max-w-lg text-center text-[#6c757d] text-base md:text-lg font-light" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+        <div className="mt-8 md:mt-32 max-w-lg text-center text-[#6c757d] text-base md:text-lg font-light" style={{ fontFamily: 'Montserrat, sans-serif' }}>
           Naturally derived ingredients, paediatrician approved, and made in Britain. Clean, gentle skincare your whole family can trust — from first bath to bedtime cuddles.
         </div>
 
@@ -757,7 +757,7 @@ const SensitiveSkinStage = () => {
       >
         {/* Right Side: Text Content */}
         <div className="max-w-3xl text-left" style={{ paddingLeft: `${padding}px` }}>
-          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-4 md:mb-10 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-[#333333] mb-2 md:mb-10 leading-tight">
             <span className="italic font-light tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>Sensitive</span> Skin Safe
           </h2>
           <p className="text-base md:text-lg text-[#8b5a3c] leading-relaxed" style={{ fontFamily: 'Montserrat, sans-serif' }}>

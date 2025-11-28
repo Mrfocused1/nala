@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Heart, Zap, Flame, Send, Mail } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
+import CloudWatchForm from './CloudWatchForm';
 
 // --- Components ---
 
@@ -261,6 +262,8 @@ const ContactPage = () => {
         </div>
       </section>
 
+      {/* Contact Form Section */}
+      <CloudWatchForm />
 
       {/* Global CSS for Stroke Text Effect */}
       <style jsx global>{`

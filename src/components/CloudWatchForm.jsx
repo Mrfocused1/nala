@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function CloudWatchForm() {
   const [isTyping, setIsTyping] = useState(false);
@@ -10,7 +12,7 @@ export default function CloudWatchForm() {
   const [blink, setBlink] = useState(false);
 
   useEffect(() => {
-    const handleMouse = (e) => setCursor({ x: e.clientX, y: e.clientY });
+    const handleMouse = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", handleMouse);
     return () => window.removeEventListener("mousemove", handleMouse);
   }, []);

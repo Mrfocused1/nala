@@ -116,6 +116,7 @@ const ExperienceContent = () => {
   const marqueeContainer = useRef(null);
   const marqueeTrack = useRef(null);
   const letterRefs = useRef([]);
+  const iconRefs = useRef([]);
   const connectorPath = useRef(null);
   const loopPath = useRef(null);
   const snakeTextRef = useRef(null);
@@ -123,8 +124,8 @@ const ExperienceContent = () => {
   const phrase = "DISCOVER OUR 33% DISCOUNT ACROSS THE WEBSITE FOR ALL PRODUCTS ";
   const chars = phrase.split('').map((char, index) => {
     let icon = null;
-    if (index === 14) icon = <img src="/stickers/10.png" alt="leaf sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(8deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
-    if (index === 35) icon = <img src="/stickers/11.png" alt="sun sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(-12deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
+    if (index === 14) icon = <img src="/stickers/6.png" alt="sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(8deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
+    if (index === 35) icon = <img src="/stickers/2.png" alt="sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(-12deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
 
     return { char, icon, id: index, hasIcon: !!icon };
   });
@@ -152,6 +153,20 @@ const ExperienceContent = () => {
 
                 const yPos = Math.sin((i * frequency) + progress) * amplitude;
                 const rot = Math.cos((i * frequency) + progress) * 15;
+
+                gsap.set(el, { y: yPos, rotation: rot });
+              }
+            });
+
+            // Apply same animation to icons
+            iconRefs.current.forEach((el, i) => {
+              if (el) {
+                const frequency = 0.3;
+                const amplitude = 60;
+                // Use the index from the chars array to match the position
+                const charIndex = el.dataset.charIndex;
+                const yPos = Math.sin((charIndex * frequency) + progress) * amplitude;
+                const rot = Math.cos((charIndex * frequency) + progress) * 15;
 
                 gsap.set(el, { y: yPos, rotation: rot });
               }
@@ -235,7 +250,9 @@ const ExperienceContent = () => {
               </span>
               {item.icon && (
                 <span
-                  className="inline-block mx-4 relative -top-4"
+                  ref={el => iconRefs.current.push(el)}
+                  data-char-index={i}
+                  className="inline-block mx-4 relative -top-4 origin-center will-change-transform"
                   style={{ willChange: 'transform' }}
                 >
                   {item.icon}

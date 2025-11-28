@@ -7,6 +7,7 @@ import ShopPage from './components/ShopPage'
 import ProductPage from './components/ProductPage'
 import BurgerMenu from './components/BurgerMenu'
 import ScribbleOverlay from './components/ScribbleOverlay'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   const location = useLocation()
@@ -61,6 +62,9 @@ function App() {
           element={<ProductPage />}
         />
       </Routes>
+
+      {/* Global Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   )
 }

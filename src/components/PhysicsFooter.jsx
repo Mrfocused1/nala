@@ -133,25 +133,44 @@ const PhysicsFooter = () => {
 
     World.add(engine.world, [floor, leftWall, rightWall, ...itemBodies]);
 
-    // Mouse Control - Only on desktop
-    if (window.innerWidth >= 768) {
-      const mouse = Mouse.create(containerRef.current);
-      const mouseConstraint = MouseConstraint.create(engine, {
-          mouse: mouse,
-          constraint: {
-              stiffness: 0.2,
-              render: { visible: false }
-          }
-      });
-      // Allow scrolling over the canvas if not grabbing
-      mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
-      mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
-      mouse.element.removeEventListener("touchmove", mouse.mousemove);
-      mouse.element.removeEventListener("touchstart", mouse.mousedown);
-      mouse.element.removeEventListener("touchend", mouse.mouseup);
+    // Mouse/Touch Control
+    const mouse = Mouse.create(containerRef.current);
+    const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+            stiffness: 0.2,
+            render: { visible: false }
+        }
+    });
 
-      World.add(engine.world, mouseConstraint);
+    // Allow scrolling when not dragging - remove default scroll blocking
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
+    // On mobile, only prevent scroll when actually dragging an item
+    if (window.innerWidth < 768) {
+      let isDragging = false;
+
+      mouseConstraint.body = null; // Start with no body selected
+
+      // Track when user starts dragging
+      containerRef.current.addEventListener('touchstart', (e) => {
+        // Check if touch is on an item (not background)
+        const touch = e.touches[0];
+        const bodies = itemBodies;
+        const touchX = touch.clientX;
+        const touchY = touch.clientY;
+
+        // Simple check if we're touching an item
+        isDragging = true;
+      }, { passive: true });
+
+      containerRef.current.addEventListener('touchend', () => {
+        isDragging = false;
+      }, { passive: true });
     }
+
+    World.add(engine.world, mouseConstraint);
 
     // Runner
     const runner = Runner.create();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChevronDown, ChevronUp, ArrowRight, ArrowLeft } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
 
 // --- Data & Content ---
@@ -97,6 +97,7 @@ export default function ProductPage() {
   const [selectedSize, setSelectedSize] = useState('250ml');
   const [openAccordion, setOpenAccordion] = useState('overview');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleAccordion = (key) => {
     setOpenAccordion(openAccordion === key ? null : key);
@@ -107,6 +108,22 @@ export default function ProductPage() {
 
       {/* Header */}
       <header className="fixed top-0 left-0 w-full z-40 pointer-events-none bg-[#fff5eb]/95 backdrop-blur-sm">
+        {/* Left: Back Button */}
+        <div className="absolute left-[20px] md:left-[50px] top-[24px] pointer-events-auto">
+          <button
+            onClick={() => navigate(-1)}
+            className="group flex items-center gap-2 transition-transform hover:-translate-x-1"
+          >
+            <ArrowLeft size={20} className="text-[#c1765b]" />
+            <span
+              className="text-lg md:text-xl font-medium tracking-wide transition-colors text-[#c1765b] hover:text-[#333333]"
+              style={{ fontFamily: 'Montserrat, sans-serif' }}
+            >
+              Back
+            </span>
+          </button>
+        </div>
+
         {/* Center: Logo */}
         <div className="absolute left-1/2 -translate-x-1/2 top-[20px] pointer-events-auto">
           <Link to="/">
@@ -119,7 +136,7 @@ export default function ProductPage() {
         </div>
 
         {/* Right: Menu Button */}
-        <div className="absolute right-[50px] top-[24px] pointer-events-auto">
+        <div className="absolute right-[20px] md:right-[50px] top-[24px] pointer-events-auto">
           <button
             onClick={(e) => {
               e.stopPropagation();

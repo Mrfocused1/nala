@@ -3,6 +3,7 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { Heart, Zap, Flame, Send, Mail } from 'lucide-react';
 import BurgerMenu from './BurgerMenu';
 import CloudWatchForm from './CloudWatchForm.tsx';
+import PhysicsFooter from './PhysicsFooter';
 
 // --- Components ---
 
@@ -264,6 +265,9 @@ const ContactPage = () => {
 
       {/* Contact Form Section */}
       <CloudWatchForm />
+
+      {/* Footer */}
+      <PhysicsFooter />
 
       {/* Global CSS for Stroke Text Effect */}
       <style jsx global>{`

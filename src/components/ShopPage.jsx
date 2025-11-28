@@ -192,43 +192,32 @@ const ShopPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               layout
+              className="group cursor-pointer"
             >
               <Link to={`/shop/${product.id}`}>
-                <div className="group relative bg-white rounded-2xl overflow-hidden border-2 border-[#c1765b]/10 hover:border-[#c1765b] transition-all duration-300 hover:shadow-2xl cursor-pointer">
-                  {/* Product Image */}
-                  <div className="relative aspect-[3/4] overflow-hidden bg-[#fff5eb]">
+                {/* Product Card */}
+                <div className="relative">
+                  {/* Product Image Container */}
+                  <div className="relative aspect-[3/4] overflow-hidden bg-white border-2 border-[#333333]">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                     />
 
-                    {/* Tag */}
-                    {product.tag && (
-                      <div className="absolute top-4 right-4 bg-[#c1765b] text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider">
-                        {product.tag}
-                      </div>
-                    )}
-
-                    {/* Quick Actions */}
-                    <div className="absolute bottom-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="bg-white p-3 rounded-full shadow-lg hover:bg-[#c1765b] hover:text-white transition-colors">
-                        <Heart size={20} />
-                      </button>
-                      <button className="bg-[#c1765b] text-white p-3 rounded-full shadow-lg hover:bg-[#a0624a] transition-colors">
-                        <ShoppingBag size={20} />
+                    {/* Hover Button */}
+                    <div className="absolute inset-0 flex items-end justify-center pb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <button className="bg-[#c1765b] text-white px-12 py-4 uppercase tracking-widest text-sm font-bold hover:bg-white hover:text-[#c1765b] border-2 border-[#c1765b] transition-all" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                        ADD TO CART
                       </button>
                     </div>
                   </div>
 
-                  {/* Product Info */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#333333] mb-2 group-hover:text-[#c1765b] transition-colors">
+                  {/* Product Info - Outside Card */}
+                  <div className="mt-4">
+                    <h3 className="text-lg font-sans font-bold text-[#333333]">
                       {product.name}
                     </h3>
-                    <p className="text-2xl font-black text-[#c1765b]" style={{ fontFamily: 'Montserrat, sans-serif' }}>
-                      {product.price}
-                    </p>
                   </div>
                 </div>
               </Link>

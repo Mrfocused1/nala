@@ -54,10 +54,10 @@ const ExperienceContent = () => {
   const phrase = "GENTLE ON SKIN KIND TO NATURE SAFE FOR YOUR FAMILY ";
   const chars = phrase.split('').map((char, index) => {
     let icon = null;
-    if (index === 14) icon = <img src="/stickers/11.png" alt="sun sticker" className="w-[8vw] h-[8vw] inline-block align-middle mx-2 drop-shadow-lg" style={{ transform: 'rotate(-12deg)' }} />;
-    if (index === 35) icon = <img src="/stickers/10.png" alt="leaf sticker" className="w-[8vw] h-[8vw] inline-block align-middle mx-2 drop-shadow-lg" style={{ transform: 'rotate(8deg)' }} />;
+    if (index === 14) icon = <img src="/stickers/10.png" alt="leaf sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(8deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
+    if (index === 35) icon = <img src="/stickers/11.png" alt="sun sticker" className="inline-block align-middle drop-shadow-lg" style={{ width: '96px', height: '96px', minWidth: '96px', minHeight: '96px', maxWidth: '96px', maxHeight: '96px', transform: 'rotate(-12deg)', flexShrink: 0, marginLeft: '8px', marginRight: '8px' }} />;
 
-    return { char, icon, id: index };
+    return { char, icon, id: index, hasIcon: !!icon };
   });
 
   useLayoutEffect(() => {
@@ -166,8 +166,8 @@ const ExperienceContent = () => {
               </span>
               {item.icon && (
                 <span
-                  ref={el => letterRefs.current[chars.length + i] = el}
                   className="inline-block mx-4 relative -top-4"
+                  style={{ willChange: 'transform' }}
                 >
                   {item.icon}
                 </span>
@@ -438,22 +438,35 @@ const ShopSection = () => {
         </div>
 
         {/* Horizontal Track */}
-        <div ref={shopTrack} className="flex gap-[5vw] w-fit items-center h-[60vh]">
+        <div ref={shopTrack} className="flex gap-[5vw] w-fit items-start h-[60vh]">
             {products.map((product, i) => (
             <div
               key={i}
-              className="group relative w-[50vw] md:w-[18vw] h-auto aspect-[2/3] bg-white border border-[#c1765b]/20 flex flex-col items-center justify-center p-4 md:p-6 hover:border-[#c1765b] hover:shadow-xl transition-all duration-500 cursor-pointer rounded-2xl overflow-hidden"
+              className="group relative w-[50vw] md:w-[18vw] cursor-pointer"
               style={{ transform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
             >
-              {/* Product Image */}
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-contain"
-              />
+              {/* Product Image Container */}
+              <div className="relative aspect-[2/3] overflow-hidden bg-white border-2 border-[#333333]">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                />
 
-              {/* Hover Overlay Line */}
-              <div className="absolute bottom-0 left-0 w-0 h-1 bg-[#c1765b] group-hover:w-full transition-all duration-500 ease-out" />
+                {/* Hover Button */}
+                <div className="absolute inset-0 flex items-end justify-center pb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <button className="bg-[#c1765b] text-white px-6 md:px-8 py-3 uppercase tracking-widest text-xs md:text-sm font-bold hover:bg-white hover:text-[#c1765b] border-2 border-[#c1765b] transition-all" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+                    VIEW PRODUCT
+                  </button>
+                </div>
+              </div>
+
+              {/* Product Info - Outside Card */}
+              <div className="mt-3 md:mt-4">
+                <h3 className="text-sm md:text-base font-sans font-bold text-[#333333]">
+                  {product.name}
+                </h3>
+              </div>
             </div>
             ))}
 
